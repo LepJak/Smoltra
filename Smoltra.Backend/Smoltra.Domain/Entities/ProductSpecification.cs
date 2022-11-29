@@ -1,4 +1,5 @@
 ﻿using Smoltra.Domain.Common;
+using Smoltra.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

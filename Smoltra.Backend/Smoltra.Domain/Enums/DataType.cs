@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Smoltra.Domain.Entities
+namespace Smoltra.Domain.Enums
 {
     public enum DataType
     {
