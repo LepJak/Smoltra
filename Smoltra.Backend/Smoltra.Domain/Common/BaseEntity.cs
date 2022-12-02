@@ -8,6 +8,6 @@ namespace Smoltra.Domain.Common
 {
     public abstract class BaseEntity
     {
-        public required Guid Id { get; set; }
+        public Guid Id { get;  private set; }
     }
 }

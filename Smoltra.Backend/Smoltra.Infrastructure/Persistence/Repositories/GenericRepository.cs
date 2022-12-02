@@ -17,11 +17,11 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
         public async Task AddAsync(T entity, CancellationToken cancellationToken)
             => await _context.Set<T>().AddAsync(entity, cancellationToken);
 
-        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
-            => await _context.Set<T>().ToListAsync(cancellationToken);
+        public async Task<IEnumerable<T>> GetListAsync(CancellationToken cancellationToken)
+            => await _context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
 
-        public async Task<IEnumerable<T>> GetAllAsyncByCondition(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
-            => await _context.Set<T>().Where(predicate).ToListAsync(cancellationToken);
+        public async Task<IEnumerable<T>> GetListByConditionAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+            => await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
 
         public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
             => await _context.Set<T>().FindAsync(new object[] { id }, cancellationToken);
@@ -31,7 +31,9 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
 
         public void Update(T entity)
             => _context.Set<T>().Update(entity);
-
+        public async Task<int> GetCount()
+            => await _context.Set<T>().CountAsync();
+        
         public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken)
             => await _context.Set<T>().AddRangeAsync(entities, cancellationToken);
 

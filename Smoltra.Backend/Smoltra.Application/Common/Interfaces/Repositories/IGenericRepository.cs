@@ -13,6 +13,7 @@ namespace Smoltra.Application.Common.Interfaces.Repositories
         Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
         Task AddAsync(T entity, CancellationToken cancellationToken);
         void Update(T entity);
+        Task<int> GetCount()
         Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
         Task<IEnumerable<T>> GetAllAsyncByCondition(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
         void Remove(T entity);
