@@ -22,10 +22,10 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
             Handle(GetProductListWithPagginationQuery request, CancellationToken cancellationToken)
         {
             var products = await _repository
-                .Get(request.CountProducts,
+                .GetListByPagginationAsync(request.CountProducts,
                 request.NumberPage, cancellationToken);
 
-            var result = _mapper.Map<List<ProductListItemDto>>(products);
+            var result = _mapper.Map<List<ProductItemDto>>(products);
 
             return new ProductListVm { Products = result };
         }
