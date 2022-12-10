@@ -15,12 +15,12 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
         public string? Name { get; set; }
         public string? Category { get; set; }
         public decimal Price { get; set; }
-        public decimal Image { get; set; }
+        public Guid ImageId { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Product, ProductItemDto>()
-                .ForMember(p => p.Image, opt => opt.MapFrom(p => p.GeneralImageId))
+                .ForMember(p => p.ImageId, opt => opt.MapFrom(p => p.GeneralImageId))
                 .ForMember(p => p.Category, opt => opt.MapFrom(p => p.Category.Name));
         }
     }
