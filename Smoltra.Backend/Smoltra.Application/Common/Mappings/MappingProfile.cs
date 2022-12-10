@@ -5,9 +5,9 @@ namespace Smoltra.Application.Common.Mappings
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile(Assembly assembly) 
         {
-            ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+            ApplyMappingsFromAssembly(assembly);
         }
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {

@@ -10,7 +10,7 @@ namespace Smoltra.Domain.Entities
     public class UnitsOfMeasurement : BaseEntity
     {
         public string? Name { get; set; }
-        public List<ProductSpecification>? ProductSpecifications { get; set; }
-        public List<SpecificationVariant>? SpecificationVariants { get; set; }
+        public List<ProductSpecification> ProductSpecifications { get; set; } = new();
+        public List<SpecificationVariant> SpecificationVariants { get; set; } = new();
     }
 }

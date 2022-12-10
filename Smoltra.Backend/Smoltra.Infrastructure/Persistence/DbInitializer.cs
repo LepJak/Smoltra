@@ -8,6 +8,11 @@ namespace Smoltra.Infrastructure.Persistence
 {
     public class DbInitializer
     {
-        //TODO: Add initializer dbcontext
+        public static void Initialize(SmoltraDbContext context)
+        {
+            
+            context.Database.EnsureCreated();
+            //TODOчинить эту х 
+        }
     }
 }

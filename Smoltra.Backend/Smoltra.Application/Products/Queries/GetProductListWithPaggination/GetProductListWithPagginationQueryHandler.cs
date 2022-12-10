@@ -21,6 +21,7 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
         public async Task<ProductListVm> 
             Handle(GetProductListWithPagginationQuery request, CancellationToken cancellationToken)
         {
+            
             var products = await _repository
                 .GetListByPagginationAsync(request.CountProducts,
                 request.NumberPage, cancellationToken);
