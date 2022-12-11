@@ -2,6 +2,7 @@ using Smoltra.Application;
 using Smoltra.Application.Common.Interfaces;
 using Smoltra.Application.Common.Mappings;
 using Smoltra.Infrastructure.Persistence;
+using Smoltra.WebAPI.Middleware;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +28,8 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider
         .GetRequiredService<SmoltraDbContext>();
     DbInitializer.Initialize(context);
-   
+    DbInitializer.Seed(context);
+
 }
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCustomExceptionHandler();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

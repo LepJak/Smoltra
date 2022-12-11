@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Smoltra.Domain\Smoltra.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Products\Commands\" />
-  </ItemGroup>
-
 </Project>

@@ -9,6 +9,8 @@ namespace Smoltra.Domain.Entities
 {
     public class ImageSet : BaseEntity
     {
+        public Guid? ProductId { get; set; }
+        public Product? Product { get; set; }
         public List<ProductImage> ProductImages { get; set; } 
             = new ();
     }

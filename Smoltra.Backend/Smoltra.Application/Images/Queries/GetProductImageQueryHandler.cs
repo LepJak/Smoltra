@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Smoltra.Application.Common.Exceptions;
 using Smoltra.Application.Products.Queries.GetProductListWithPaggination;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,10 @@ namespace Smoltra.Application.Images.Queries
             var result = new ImagePathDto();
             //TODO : Add file service and add extensions for images.
             //TODO : async.
-            var path = $"C:\\Users\\Евгений\\Desktop\\Images\\{request.ImageId}.jpg";
-            if(File.Exists(path))
-                result.Image = new PhysicalFileResult(path, "image / jpg");
+            var path = $"C:\\Users\\Евгений\\Desktop\\Images\\Products\\{request.ImageId}.jpg";
+            if(!File.Exists(path))
+                throw new NotFoundException("Image", request.ImageId);
+            result.Image = new PhysicalFileResult(path, "image / jpg");
 
             return result;
         }

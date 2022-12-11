@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Smoltra.Application.Products.Queries.GetProductDetails;
 using Smoltra.Application.Products.Queries.GetProductListWithPaggination;
 using Smoltra.WebAPI.Models;
 
@@ -20,6 +21,17 @@ namespace Smoltra.WebAPI.Controllers
                 .Map<GetProductListWithPagginationQuery>(getProductProductListQuery);
             var products = await Mediator.Send(query);
             return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDetailsVm>>
+            Get(Guid id)
+        {           
+            var product = await Mediator.Send(new GetProductDetailsQuery
+            {
+                ProductId = id
+            });
+            return Ok(product);
         }
     }
 }

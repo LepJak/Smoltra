@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Smoltra.Domain.Common
+namespace Smoltra.Application.Products.Commands.DeleteProduct
 {
-    public abstract class BaseEntity
+    internal class DeleteProductCommand
     {
-        public Guid Id { get;  set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Smoltra.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 namespace Smoltra.Application.Common.Interfaces.Repositories
 {
     public interface IGenericRepository<T>
-        where T : class
+        where T : BaseEntity
     {
         Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-        Task AddAsync(T entity, CancellationToken cancellationToken);
+        Task<Guid> AddAsync(T entity, CancellationToken cancellationToken);
         void Update(T entity);
         Task<int> GetCount();
         Task<IEnumerable<T>> GetListAsync(CancellationToken cancellationToken);

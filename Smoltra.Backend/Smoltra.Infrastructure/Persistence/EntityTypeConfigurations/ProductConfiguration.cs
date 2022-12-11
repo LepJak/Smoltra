@@ -10,11 +10,9 @@ namespace Smoltra.Infrastructure.Persistence.EntityTypeConfigurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.HasKey(product => product.Id);
-            builder.Property(product => product.CategoryId).IsRequired(false);
-            builder.Navigation(product => product.Category).IsRequired(false);
-            builder.HasOne(product => product.GeneralImage)
+            builder.HasOne(product => product.ImageSet)
             .WithOne(image => image.Product)
-                .HasForeignKey<ProductImage>(p => p.ProductId);
+                .HasForeignKey<ImageSet>(p => p.ProductId);           
             //TODO: Add more configuration
         }
     }

@@ -7,15 +7,16 @@ namespace Smoltra.Application.Common.Interfaces
 {
     public interface ISmoltraDbContext
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<SpecificationVariant> SpecificationVariants { get; set; }
-        public DbSet<SpecificationGroupVariant> SpecificationGroupVariants { get; set; }
-        public DbSet<ProductSpecification> ProductSpecifications { get; set; }
-        public DbSet<ProductSpecificationGroup> ProductSpecificationGroups { get; set; }
-        public DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
-        public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<SpecificationValue> SpecificationValues { get; set; }
+        DbSet<Product> Products { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<SpecificationVariant> SpecificationVariants { get; set; }
+        DbSet<SpecificationGroupVariant> SpecificationGroupVariants { get; set; }
+        DbSet<ProductSpecification> ProductSpecifications { get; set; }
+        DbSet<ProductSpecificationGroup> ProductSpecificationGroups { get; set; }
+        DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
+        DbSet<ProductImage> ProductImages { get; set; }
+        DbSet<SpecificationValue> SpecificationValues { get; set; }
+        DbSet<ImageSet> ImageSets { get; set; }
 
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
