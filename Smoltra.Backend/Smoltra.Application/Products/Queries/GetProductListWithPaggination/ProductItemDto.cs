@@ -15,7 +15,7 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
         public string? Name { get; set; }
         public string? Category { get; set; }
         public decimal Price { get; set; }
-        public Guid ImageId { get; set; }
+        public Guid? ImageId { get; set; }
 
         public void Mapping(Profile profile)
         {

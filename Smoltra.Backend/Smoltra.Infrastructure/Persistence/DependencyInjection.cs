@@ -23,6 +23,7 @@ namespace Smoltra.Infrastructure.Persistence
                 provider.GetRequiredService<SmoltraDbContext>());
 
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             return services;
         }
     }

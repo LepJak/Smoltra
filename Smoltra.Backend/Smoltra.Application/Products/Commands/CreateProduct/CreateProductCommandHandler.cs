@@ -30,10 +30,10 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                 Price = request.Price,
                 CreatedBy= request.UserId,
                 Created = DateTime.Now,
-                Category = category
-                
+                Category = category               
             };
             var id = await _productRepository.AddAsync(product, cancellationToken);
+            await _productRepository.SaveChangesAsync(cancellationToken);
             return id;
         }
     }
