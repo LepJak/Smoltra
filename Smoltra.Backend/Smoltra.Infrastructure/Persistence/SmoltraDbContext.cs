@@ -21,7 +21,10 @@ namespace Smoltra.Infrastructure.Persistence
         public DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ImageSet> ImageSets { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
         public DbSet<SpecificationValue> SpecificationValues { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

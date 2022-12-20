@@ -9,8 +9,10 @@ namespace Smoltra.WebAPI.Middleware
     public class CustomExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        public CustomExceptionHandlerMiddleware(RequestDelegate next) 
-            => _next = next;
+        public CustomExceptionHandlerMiddleware(RequestDelegate next, ILogger<CustomExceptionHandlerMiddleware> logger) 
+            => (_next, _logger) = (next, logger);
+
+        private readonly ILogger<CustomExceptionHandlerMiddleware> _logger;
         public async Task Invoke(HttpContext context)
         {
             try
@@ -40,7 +42,7 @@ namespace Smoltra.WebAPI.Middleware
             {
                 result = JsonSerializer.Serialize(new { error = exception.Message });
             }
-
+            _logger.LogError(result);
             return context.Response.WriteAsync(result);
         }
     }

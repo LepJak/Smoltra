@@ -28,7 +28,7 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
             product.LastModifiedBy = request.UserId;
             product.LastModified = DateTime.Now;
             product.Category= category;
-
+            _productRepository.Update(product);
             await _productRepository.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

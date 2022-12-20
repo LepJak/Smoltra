@@ -33,7 +33,9 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
 
         public virtual void Remove(T entity)
             => _context.Set<T>().Remove(entity);
-
+        //TODO: убрать сс токен
+        public virtual void RemoveRange(IEnumerable<T> entity, CancellationToken cancellationToken)
+            => _context.Set<T>().RemoveRange(entity);
         public virtual void Update(T entity)
             => _context.Set<T>().Update(entity);
         public virtual async Task<int> GetCount()
@@ -44,5 +46,10 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
 
         public virtual async Task<bool> SaveChangesAsync(CancellationToken cancellationToken)
             => await _context.SaveChangesAsync(cancellationToken) > 0;
+
+        public virtual Task<int> GetCount(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+        {
+           return _context.Set<T>().Where(predicate).CountAsync(cancellationToken);
+        }
     }
 }

@@ -18,7 +18,9 @@ namespace Smoltra.Application.Common.Interfaces.Repositories
         Task<IEnumerable<T>> GetListAsync(CancellationToken cancellationToken);
         Task<IEnumerable<T>> GetListByConditionAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
         void Remove(T entity);
+        void RemoveRange(IEnumerable<T> entity, CancellationToken cancellationToken);
         Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
         Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken);
+        Task<int> GetCount(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken);
     }
 }

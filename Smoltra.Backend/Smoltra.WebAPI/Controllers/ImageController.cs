@@ -4,7 +4,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Smoltra.WebAPI.Controllers
 {
-    public class ImagesController : BaseController
+    public class ImageController : BaseController
     {
         [HttpGet("{id}")]
         public  async Task<IActionResult?> Get(Guid id)

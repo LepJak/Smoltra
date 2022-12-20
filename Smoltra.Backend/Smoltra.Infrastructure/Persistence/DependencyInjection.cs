@@ -24,6 +24,8 @@ namespace Smoltra.Infrastructure.Persistence
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             return services;
         }
     }

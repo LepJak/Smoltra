@@ -11,7 +11,6 @@ namespace Smoltra.WebAPI.Models
     {
         public int NumberPage { get; set; } =1;
         public int CountProducts { get; set; } = 20;
-
         public void Mapping(Profile profile)
         {
             profile

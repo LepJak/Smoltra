@@ -28,7 +28,7 @@ namespace Smoltra.Application.Products.Queries.GetProductDetails
         {
             
             profile.CreateMap<Product, ProductDetailsVm>()
-                .ForMember(p => p.Images, opt => opt.MapFrom(p => p.ImageSet.ProductImages))
+                .ForMember(p => p.Images, opt => opt.MapFrom(p => p.ImageSet != null ? p.ImageSet.ProductImages : null))
                 .ForMember(p => p.Category, opt => opt.MapFrom(p => p.Category != null ? p.Category.Name : null));
         }
 

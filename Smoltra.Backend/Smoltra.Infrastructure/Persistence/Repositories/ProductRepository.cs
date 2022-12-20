@@ -32,7 +32,7 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
                 .Include(product => product.Category)
                 .Include(product => product.ImageSet)
                 .Include(p => p.ImageSet)
-                .ThenInclude(set => set.ProductImages)
+                .ThenInclude(set => set != null ? set.ProductImages : null)
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
             return result;

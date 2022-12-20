@@ -9,5 +9,7 @@ namespace Smoltra.Application.Common.Interfaces.Repositories
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
+        Task<IEnumerable<Category>?> GetChildrenCategories(Guid id,
+            CancellationToken cancellationToken);
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Smoltra.Application.Common.Interfaces;
 using Smoltra.Application.Common.Interfaces.Repositories;
 using Smoltra.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Smoltra.Infrastructure.Persistence.Repositories
 {
@@ -13,6 +9,15 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
     {
         public CategoryRepository(ISmoltraDbContext context) : base(context)
         {
+            
+        }
+        public async Task<IEnumerable<Category>?> GetChildrenCategories(Guid id, 
+            CancellationToken cancellationToken)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id,cancellationToken);
+
+            return category?.ChildrenCategories;
         }
     }
 }

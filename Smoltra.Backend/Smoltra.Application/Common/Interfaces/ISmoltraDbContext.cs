@@ -17,7 +17,9 @@ namespace Smoltra.Application.Common.Interfaces
         DbSet<ProductImage> ProductImages { get; set; }
         DbSet<SpecificationValue> SpecificationValues { get; set; }
         DbSet<ImageSet> ImageSets { get; set; }
-
+        DbSet<CartItem> CartItems { get; set; }
+        DbSet<Order> Orders { get; set; }   
+        DbSet<OrderItem> OrderItems { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         DbSet<T> Set<T>() where T : class;

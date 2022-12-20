@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using Smoltra.Application.Common.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
 {
-    internal class GetProductListWithPagginationQueryHandler
+    public class GetProductListWithPagginationQueryHandler
         : IRequestHandler<GetProductListWithPagginationQuery, ProductListVm>
     {
         public GetProductListWithPagginationQueryHandler(IProductRepository repository, IMapper mapper) =>
@@ -28,7 +23,7 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
 
             var result = _mapper.Map<List<ProductItemDto>>(products);
 
-            return new ProductListVm { Products = result };
+            return new ProductListVm { Products =  result};
         }
     }
 }

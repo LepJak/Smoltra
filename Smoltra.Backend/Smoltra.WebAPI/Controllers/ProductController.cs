@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Smoltra.Application.Products.Commands.CreateProduct;
 using Smoltra.Application.Products.Commands.DeleteProduct;
@@ -15,7 +16,6 @@ namespace Smoltra.WebAPI.Controllers
         private readonly IMapper _mapper;
 
         public ProductController(IMapper mapper) => _mapper = mapper;
-
         [HttpGet]
         public async Task<ActionResult<ProductListVm>>
             Get([FromQuery] GetProductProductListQueryDto getProductProductListQuery)
