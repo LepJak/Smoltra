@@ -13,6 +13,5 @@ var context = scope.ServiceProvider
 DbInitializer.Initialize(context);
 DbInitializer.Seed(context);
 
-
 app.MiddlewareConfigure();
 app.Run();
