@@ -28,6 +28,8 @@ namespace Smoltra.Infrastructure.Persistence
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<ISpecificationRepository, SpecificationRepository>();
+            services.AddScoped<ISpecificationGroupRepository, SpecificationGroupRepository>();
             services.AddScoped<IFileService, FileService>();
             return services;
         }

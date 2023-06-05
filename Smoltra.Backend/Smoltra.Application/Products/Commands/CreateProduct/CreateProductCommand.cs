@@ -18,7 +18,7 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
         public Guid CategoryId { get; set; }
         public Guid UserId { get; set; }
         public List<IFormFile> Images { get; set; } = new List<IFormFile>();
-        public List<SpecificatinGroupDto> Specifications { get; set; } = new List<SpecificatinGroupDto>();
+        public List<SpecificatinGroupDto> SpecificationGroups { get; set; } = new List<SpecificatinGroupDto>();
     }
 
     public class SpecificatinGroupDto

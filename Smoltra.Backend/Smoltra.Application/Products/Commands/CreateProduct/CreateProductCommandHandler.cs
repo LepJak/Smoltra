@@ -15,13 +15,18 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
         : IRequestHandler<CreateProductCommand, Guid>
     {
         public CreateProductCommandHandler(IProductRepository productRepository, 
-            ICategoryRepository categoryRepository, IFileService fileService, IImageRepository imageRepository) =>
-            (_productRepository, _categoryRepository, _fileService, _imageRepository) 
-            = (productRepository, categoryRepository, fileService, imageRepository);
+            ICategoryRepository categoryRepository, IFileService fileService, IImageRepository imageRepository
+            , ISpecificationRepository specificationRepository, ISpecificationGroupRepository specificationGroupRepository) =>
+            (_productRepository, _categoryRepository, _fileService, 
+            _imageRepository, _specificationRepository,_specificationGroupRepository) 
+            = (productRepository, categoryRepository, fileService, imageRepository, 
+            specificationRepository,specificationGroupRepository);
 
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly ISpecificationGroupRepository _specificationGroupRepository;
+        private readonly ISpecificationRepository _specificationRepository;
         private readonly IFileService _fileService;
         public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
@@ -43,7 +48,16 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                 var imageId = await _imageRepository.AddAsync(new Image { ProductId = id }, cancellationToken);
                 _fileService.SaveProductImage(imageId, image);
             }
-
+            foreach(var specGroup in request.SpecificationGroups)
+            {
+                var specGroupId = await _specificationGroupRepository
+                    .AddAsync(new ProductSpecificationGroup { ProductId = id , Title = specGroup.Name}, cancellationToken);
+                foreach(var spec in specGroup.Specifications)
+                {
+                     await _specificationRepository
+                    .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name }, cancellationToken);
+                }
+            }
             
             await _productRepository.SaveChangesAsync(cancellationToken);
             return id;
