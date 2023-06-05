@@ -41,3 +41,7 @@
   src: local("AirbnbCerealLight"),
     url("./fonts/Lack-Regular.otf") format("truetype");
 }
+body{
+  margin: 0;
+  padding: 0;
+}

@@ -14,6 +14,6 @@ namespace Smoltra.WebAPI.Controllers
                 ImageId= id
             });                
             return response.Image;           
-        }
+        }    
     }
 }

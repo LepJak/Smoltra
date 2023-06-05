@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import emptyImage from "../../images/empty_photo.jpg";
@@ -9,24 +9,38 @@ import { NavLink } from 'react-router-dom';
 const handleImageError = e => { e.target.src = emptyImage };
 
 const ProductCard = (props) => {
-    let imageUrl = `https://localhost:7175/api/image/${props.product.imageId}`;
+    let imageUrl = `https://localhost:7175/api/image/${props.product?.imageId}`;
 
+    var width = props.width ?? '200px';
+
+    const [stateInCart, setState] = useState(props.inCart);
+
+    let throwState = () =>{
+        console.log("1");
+        setState(true);
+        props.selectCountModalHandle(props.product);
+    }
     return (
-        <Card style={{ width: '18rem', margin: "0.5rem" }}>
+        <Card style={{ width: width, margin: "0.5rem", padding:'12px',  border: '0.5px solid gray'}}>
             <NavLink>
-                <Card.Img onError={handleImageError} variant="top" src={imageUrl} />
+                <Card.Img style={{width:"100%", height:'150px'}} onError={handleImageError} variant="top" src={imageUrl} />
             </NavLink>
             <Card.Body style={{ height: '100%' }} className="">
-                <NavLink to={'/products/' + props.product.id}>
-                    <Card.Title>{props.product.name}</Card.Title>
+                <NavLink to={'/products/' + props.product?.id}>
+                    <Card.Title style={{ fontSize:'15px'}}>{props.product?.name}</Card.Title>
                 </NavLink>
-                <Card.Text className="text-end">
-                    {props.product.price} ₽
+                <Card.Text className="text-end" style={{padding:'0 0 10px 0', fontSize:'20px'}}>
+                    {props.product?.price} ₽
                 </Card.Text>
-                <div className="text-end mt-4">
-                    <Button variant="primary">Buy</Button>
+                <div className="text-end mt-4"  style={{ position: 'absolute', height:'auto', width: '100%', top: 'auto', left: '0', bottom: '0', right: '0', margin:'auto'}} >
+                    {
+                        !(props.inCart) ?
+                        (<Button variant="primary" style={{width: '100%', height:'40px', borderRadius:'3px'}} onClick={throwState}>Купить</Button>) 
+                        : (<Button variant="primary" style={{width: '100%', height:'40px', borderRadius:'3px'}}>В корзине</Button>)
+                    }
+                    
                 </div>
-
+                
             </Card.Body>
         </Card>
     );

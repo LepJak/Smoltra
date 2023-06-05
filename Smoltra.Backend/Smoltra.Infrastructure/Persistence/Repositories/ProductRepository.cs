@@ -36,9 +36,8 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
                 .Include(product => product.SpecificationGroups)
                 .ThenInclude(specificationGroup => specificationGroup.ProductSpecifications)
                 .ThenInclude(specification => specification.UnitsOfMeasurement)
-                .Include(product => product.ImageSet)
-                .Include(p => p.ImageSet)
-                .ThenInclude(set => set != null ? set.ProductImages : null)
+                .Include(product => product.Images)
+                .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
             return result;

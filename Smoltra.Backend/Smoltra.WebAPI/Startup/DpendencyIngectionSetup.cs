@@ -15,7 +15,7 @@ namespace Smoltra.WebAPI.Startup
             RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
-           
+            services.AddCors();
             services.AddEndpointsApiExplorer();
             services.AddAutoMapper(config =>
             {

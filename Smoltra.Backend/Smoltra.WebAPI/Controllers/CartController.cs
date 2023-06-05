@@ -5,11 +5,12 @@ using Smoltra.Application.CartItems.Command.AddProductToCart;
 using Smoltra.Application.CartItems.Command.DeleteCartItem;
 using Smoltra.Application.CartItems.Command.UpdateCartItem;
 using Smoltra.Application.CartItems.Queries.GetCartItemList;
+using Smoltra.Application.Carts.Queries.GetCartItemsGuidList;
 using Smoltra.WebAPI.Models;
 
 namespace Smoltra.WebAPI.Controllers
 {
-    [Authorize]
+
     public class CartController : BaseController
     {
         private readonly IMapper _mapper;
@@ -17,7 +18,7 @@ namespace Smoltra.WebAPI.Controllers
         public CartController(IMapper mapper) => _mapper = mapper;
 
         [HttpPost]
-        public async Task<Guid> Create([FromBody]CreateCartItemDto createCartItemDto)
+        public async Task<Guid> Create([FromBody] CreateCartItemDto createCartItemDto)
         {
             var request = _mapper.Map<AddProductToCartCommand>(createCartItemDto);
             request.UserId = UserId;
@@ -35,17 +36,25 @@ namespace Smoltra.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(Guid id)
+        public async Task DeleteItem(Guid id)
         {
             await Mediator
-                .Send(new DeleteCartItemCommand { CartItemId = id, UserId = UserId});
+                .Send(new DeleteCartItemCommand { CartItemId = id, UserId = UserId });
         }
 
         [HttpGet]
         public async Task<CartItemListVm> Get()
         {
             var list = await Mediator
-                .Send(new GetCartItemListQuery { UserId = UserId});
+                .Send(new GetCartItemListQuery { UserId = UserId });
+            return list;
+        }
+
+        [HttpGet("GetProductsGuid")]
+        public async Task<CatItemsGuidListVm> GetproductsGuid()
+        {
+            var list = await Mediator
+                .Send(new GetCartItemsGuidListQuery() { UserId = UserId });
             return list;
         }
     }

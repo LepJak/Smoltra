@@ -15,7 +15,7 @@ namespace Smoltra.Infrastructure.Persistence
         }
         public static void Seed(SmoltraDbContext context)
         {
-            
+
             if (!context.Products.Any())
             {
                 var specGroup = new ProductSpecificationGroup
@@ -44,12 +44,12 @@ namespace Smoltra.Infrastructure.Persistence
                 {
                     Name = "Трактор"
                 });
-                
-                var image1 = context.ProductImages.Add(new ()
+
+                var image1 = context.ProductImages.Add(new()
                 {
                     Id = new Guid("832E0CC2-3FEE-4698-9DE5-D0A266D73D73")
                 });
-                var image2 = context.ProductImages.Add(new ()
+                var image2 = context.ProductImages.Add(new()
                 {
                     Id = new Guid("832E0CC3-3FEE-4698-9DE5-D0A266D73D73")
                 });
@@ -64,17 +64,15 @@ namespace Smoltra.Infrastructure.Persistence
                         GeneralImage = image1.Entity,
                         Price = 1_000_000,
                         Category = category.Entity,
-                        ImageSet = new ImageSet
-                        {
-                            ProductImages =
+                        Images = new List<Image>
                             {
                                 image1.Entity,
                                 image2.Entity
 
                             }
-                        },
+                        ,
                         SpecificationGroups = new List<ProductSpecificationGroup>{ specGroup }
-                                                                     
+
                     },
                     new()
                     {
@@ -86,7 +84,7 @@ namespace Smoltra.Infrastructure.Persistence
                     }
                 };
 
-                
+
                 context.Products.AddRange(products);
                 context.SaveChanges();
 

@@ -11,7 +11,7 @@ namespace Smoltra.Domain.Entities
     {
         public Guid? ProductId { get; set; }
         public Product? Product { get; set; }
-        public List<ProductImage> ProductImages { get; set; } 
+        public List<Image> ProductImages { get; set; } 
             = new ();
     }
 }

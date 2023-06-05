@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Smoltra.Application.Common.Exceptions;
+using Smoltra.Application.Common.Interfaces;
+using Smoltra.Application.Common.Interfaces.Repositories;
 using Smoltra.Application.Products.Queries.GetProductListWithPaggination;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,12 @@ namespace Smoltra.Application.Images.Queries
     internal class GetProductImageQueryHandler
         : IRequestHandler<GetProductImageQuery, ImagePathDto>
     {
+
+        public GetProductImageQueryHandler(IFileService fileService) =>
+           (_fileService) = (fileService);
+
+        private readonly IFileService _fileService;
+
         public async Task<ImagePathDto> Handle(GetProductImageQuery request, 
             CancellationToken cancellationToken)
         {
@@ -22,7 +30,7 @@ namespace Smoltra.Application.Images.Queries
             var path = $"C:\\Users\\Евгений\\Desktop\\SMOLTRAIMAGES\\{request.ImageId}.jpg";
             if(!File.Exists(path))
                 throw new NotFoundException("Image", request.ImageId);
-            result.Image = new PhysicalFileResult(path, "image / jpg");
+            result.Image = _fileService.GetProductImage(request.ImageId); new PhysicalFileResult(path, "image / jpg");
 
             return result;
         }

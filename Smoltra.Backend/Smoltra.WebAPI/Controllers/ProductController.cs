@@ -42,7 +42,7 @@ namespace Smoltra.WebAPI.Controllers
 
         [HttpPost]
         public async Task<ActionResult<Guid>>
-            Create([FromQuery] CreateProductDto createProductDto)
+            Create([FromForm] CreateProductDto createProductDto)
         {
             var query = _mapper.Map<CreateProductCommand>(createProductDto);
             var id = await Mediator.Send(query);

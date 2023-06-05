@@ -3,29 +3,41 @@ import {connect} from "react-redux";
 import { setProducts } from "../../redux/reducers/products-reduser";
 import { productApi } from '../../api/api';
 import React from "react";
-import axios from 'axios';
-
+import { getProductsGuidsFromCart } from "../../redux/reducers/cart-reducer";
+import { addProductsInCart } from "../../redux/reducers/cart-reducer";
 
 class ProductsContainer extends React.Component{
-   componentDidMount(){
-        axios.get("https://localhost:7175/api/Product?numberPage=1&countItems=20")
-        .then(response =>  this.props.setProducts(response.data.products));        
+   componentDidMount(){             
+        productApi.getProducts(1,20).then(data=>{
+            this.props.setProducts(data?.products);
+        }); 
+        this.props.getProductsGuidsFromCart();
    }
-
+  
    render(){
-    return(<Products {...this.props} productsPage={this.props.productsPage}/>);
+    console.log("render")
+    return(<Products {...this.props} productsPage={this.props.productsPage} addProductInCart={this.props.addProductsInCart}/>);
    }
 }
+
+
 const mapStateToProps = (state) => {
     return {
-        productsPage: state.productsReducer.productsPage
+        productsPage: state.productsReducer.productsPage,
+        productsGuidFromCart : state.cartReducer.productsGuidFromCart
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {     
         setProducts: (products) => {
             dispatch(setProducts(products));  
-        }  
+        } ,
+        getProductsGuidsFromCart: () => {
+            dispatch(getProductsGuidsFromCart())
+        },
+        addProductsInCart: (id) => {
+            dispatch(addProductsInCart(id) )
+        } ,
     } 
 }
 

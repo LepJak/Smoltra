@@ -1,0 +1,21 @@
+.newsImage{
+    width: 100%
+}
+.react-multi-carousel-item{
+    display: flex;
+    justify-content: center;
+}
+
+.react-multiple-carousel__arrow--left{
+    left: -12px;
+    border-radius: 5px;
+    height: 150px;
+    background-color: #d6dbdf36;  
+}
+
+.react-multiple-carousel__arrow--right{
+    right: -12px;
+    border-radius: 5px;
+    height: 150px;
+    background-color: #d6dbdf36;  
+}

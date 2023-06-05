@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Smoltra.Application.Common.Interfaces;
 using Smoltra.Application.Common.Interfaces.Repositories;
 using Smoltra.Infrastructure.Persistence.Repositories;
+using Smoltra.Infrastructure.Services;
 using System.Runtime.CompilerServices;
 
 namespace Smoltra.Infrastructure.Persistence
@@ -26,6 +27,8 @@ namespace Smoltra.Infrastructure.Persistence
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IFileService, FileService>();
             return services;
         }
     }
