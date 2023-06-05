@@ -30,6 +30,12 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
         {
             var result = await _context.Products               
                 .Include(product => product.Category)
+                .Include(product => product.SpecificationGroups)
+                .ThenInclude(specificationGroup => specificationGroup != null ? specificationGroup.ProductSpecifications : null)
+                .ThenInclude(specification => specification.SpecificationValues)
+                .Include(product => product.SpecificationGroups)
+                .ThenInclude(specificationGroup => specificationGroup.ProductSpecifications)
+                .ThenInclude(specification => specification.UnitsOfMeasurement)
                 .Include(product => product.ImageSet)
                 .Include(p => p.ImageSet)
                 .ThenInclude(set => set != null ? set.ProductImages : null)

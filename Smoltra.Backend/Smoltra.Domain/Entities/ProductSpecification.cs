@@ -14,7 +14,6 @@ namespace Smoltra.Domain.Entities
         public ProductSpecificationGroup? SpecificationGroup { get; set; }
         public Guid ProductSpecificationGroupId { get; set; }
         public List<SpecificationValue>? SpecificationValues { get; set; } = new List<SpecificationValue>();
-        public DataType? Type { get; set; } = DataType.String;
         public Guid DataTypeId { get; set; }
         public UnitsOfMeasurement? UnitsOfMeasurement { get; set; }
         public Guid UnitsOfMeasurementId { get; set; }

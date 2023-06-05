@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
-const instance = axios.Create({
+const instance = axios.create({
     withCreditionals: true,
-    baseUrl: " "
+    baseURL: "https://localhost:7175/api",
 });
 
 export const productApi = {
-    getProducts(page, pageSize){
-        return instance.get("url")
+    getProducts(numberPage, countItems){
+        return instance.get(`Product?numberPage=${numberPage}&countItems=${countItems}`)
             .then(response =>{
                 return response.data;
             })

@@ -15,7 +15,7 @@ const Specifications = (props) => {
                     {g.specifications.map(s => (
                         <tr>
                             <td>{s.name}</td>
-                            <td>{s.value}</td>
+                            <td>{s.values?.map(v => (<span>{v.name}</span>))}</td>
                         </tr>))
                     }
                 </tbody>

@@ -1,5 +1,5 @@
 //action types
-
+const SET_PRODUCT_DETAIL = "SET_PRODUCT_DETAIL";
 
 //state
 let initialState = {
@@ -47,9 +47,18 @@ let initialState = {
 }
 
 export const productDetailsReducer = (state = initialState, action) => {
-    switch (action.type) {      
+    switch (action.type) {
+        case SET_PRODUCT_DETAIL: {
+                return {...state,
+                    productDetailsPage :{
+                        ...state.productDetailsPage,
+                        product: action.product
+                    }                        
+                    }                  
+        }
         default:
             return state;
     }
-
 }
+
+export const setProduct = (product) => ({type: SET_PRODUCT_DETAIL, product})

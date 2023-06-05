@@ -18,6 +18,28 @@ namespace Smoltra.Infrastructure.Persistence
             
             if (!context.Products.Any())
             {
+                var specGroup = new ProductSpecificationGroup
+                {
+                    ProductSpecifications = new List<ProductSpecification>
+                    {
+                        new ProductSpecification
+                        {
+                            Name = "Ширина",
+                            UnitsOfMeasurement = new UnitsOfMeasurement
+                            {
+                                Name ="сантиметры",
+                                ShortName ="см"
+                            },
+                            SpecificationValues = new List<SpecificationValue>
+                            {
+                                new SpecificationValue
+                                {
+                                    Name = "1000"
+                                }
+                            }
+                        }
+                    }
+                };
                 var category = context.Categories.Add(new Category()
                 {
                     Name = "Трактор"
@@ -50,9 +72,9 @@ namespace Smoltra.Infrastructure.Persistence
                                 image2.Entity
 
                             }
-                        }
-                        
-                        
+                        },
+                        SpecificationGroups = new List<ProductSpecificationGroup>{ specGroup }
+                                                                     
                     },
                     new()
                     {
