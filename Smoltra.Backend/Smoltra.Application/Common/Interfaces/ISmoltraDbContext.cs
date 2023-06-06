@@ -16,7 +16,6 @@ namespace Smoltra.Application.Common.Interfaces
         DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
         DbSet<Image> ProductImages { get; set; }
         DbSet<SpecificationValue> SpecificationValues { get; set; }
-        DbSet<ImageSet> ImageSets { get; set; }
         DbSet<CartItem> CartItems { get; set; }
         DbSet<Order> Orders { get; set; }   
         DbSet<OrderItem> OrderItems { get; set; }

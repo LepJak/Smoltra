@@ -20,7 +20,6 @@ namespace Smoltra.Infrastructure.Persistence
         public DbSet<SpecificationVariant> SpecificationVariants { get; set; }
         public DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
         public DbSet<Image> ProductImages { get; set; }
-        public DbSet<ImageSet> ImageSets { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<SpecificationValue> SpecificationValues { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -35,7 +34,7 @@ namespace Smoltra.Infrastructure.Persistence
                 .HasForeignKey(e => e.ProductId);
             builder.Entity<Product>().HasOne(p => p.GeneralImage)
                 .WithOne(i => i.ProductForGeneral)
-                .HasForeignKey<Product>(p => p.GeneralImageId);
+                .HasForeignKey<Image>(p => p.ProductForGeneralId);
 
             base.OnModelCreating(builder);
         }

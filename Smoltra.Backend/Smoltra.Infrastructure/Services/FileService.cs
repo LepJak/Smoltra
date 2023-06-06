@@ -25,7 +25,7 @@ namespace Smoltra.Infrastructure.Services
         {
             try
             {
-                var path = $"C:\\Users\\Евгений\\Desktop\\SMOLTRAIMAGES\\";
+                var path = $"C:\\Users\\Евгений\\Desktop\\SMOLTRAIMAGES\\{id}.jpg";
                 using var fileStream = new FileStream(path, FileMode.Create);
                 image.CopyTo(fileStream);
 

@@ -15,7 +15,7 @@ export const productsReducer = (state = initialState, action) => {
                 ...state,
                 productsPage: {
                     ...state.productsPage,
-                    products: [...action.products, ...action.products, ...action.products, ...action.products, ...action.products, ...action.products]
+                    products: [...action.products]
                 }
             }
         }

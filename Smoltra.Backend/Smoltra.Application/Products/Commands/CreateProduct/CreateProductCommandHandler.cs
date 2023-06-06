@@ -42,11 +42,17 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
             };
 
             var id = await _productRepository.AddAsync(product, cancellationToken);
-
+            bool defaultImage = true;
             foreach (var image in request.Images)
             {
-                var imageId = await _imageRepository.AddAsync(new Image { ProductId = id }, cancellationToken);
+                
+                var imageId = await _imageRepository.AddAsync(new Image { ProductId = id }, cancellationToken);                 
                 _fileService.SaveProductImage(imageId, image);
+                if (defaultImage == true)
+                {
+                    product.GeneralImageId = imageId;
+                    defaultImage = false;
+                }
             }
             foreach(var specGroup in request.SpecificationGroups)
             {

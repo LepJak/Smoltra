@@ -16,12 +16,15 @@ namespace Smoltra.Application.Products.Queries.GetProductDetails
         public List<Image> Images { get; set; } = new();
         public List<SpecificationGroupDto> SpecificationGroups { get; set; } = new();
 
-        public class Image : IMapFrom<Image>
+        public class Image : IMapFrom<Smoltra.Domain.Entities.Image>
         {
             public Guid Id { get; set; }
             public void Mapping(Profile profile)
             {
-                profile.CreateMap<Image, Image>();                  
+                profile.CreateMap<Image, Smoltra.Domain.Entities.Image>()
+                     .ForMember(p => p.Id, opt => opt.MapFrom(p => p.Id))
+                     .ReverseMap()
+                    ;                  
             }
         }
         public class SpecificationGroupDto : IMapFrom<ProductSpecificationGroup>
@@ -41,9 +44,8 @@ namespace Smoltra.Application.Products.Queries.GetProductDetails
 
         public void Mapping(Profile profile)
         {
-            
-            profile.CreateMap<Product, ProductDetailsVm>()
-                .ForMember(p => p.Images, opt => opt.MapFrom(p => p.Images != null ? p.Images : null))
+            profile.CreateMap<Image, Smoltra.Domain.Entities.Image>();            profile.CreateMap<Product, ProductDetailsVm>()
+                .ForMember(p => p.Images, opt => opt.MapFrom(p => p.Images))
                 .ForMember(p => p.Category, opt => opt.MapFrom(p => p.Category != null ? p.Category.Name : null))
                 .ForMember(p => p.SpecificationGroups, opt => opt.MapFrom(p => p.SpecificationGroups));
             profile.CreateMap<ProductSpecificationGroup, SpecificationGroupDto>()

@@ -5,41 +5,74 @@ import TextField from '@mui/material/TextField';
 
 
 const ProductGroupSpecificationCreateTemplate = (props) => {
-    console.log(props.specGroup.specifications);
 
-    const addSpecification = (group) =>{
+
+    const changeGroupName =(e) =>{
+        props.changeSpecGroupName(props.specGroup,e.currentTarget.value)
+    }
+
+    const changeSpecificationValue =(spec, newSpec) =>{
+        props.changeSpecValue(props.specGroup,spec, newSpec)
+    }
+
+    const addSpecification = (group) => {
         props.addSpecification(props.specGroup);
     }
-   
+
     let speciifications = props.specGroup.specifications?.map(s =>
-        <tr>
-            <td>
-            <TextField
-          id="standard-multiline-flexible"
-          label="Multiline"
-          multiline
-          maxRows={4}
-          variant="standard"
-        />
-            </td>
-            <td>
-                {s.name}
-            </td>
-            <td>
-                {s.value}
-            </td>
-        </tr>
+        <ProductSpecificationCreateTemplate changeSpecValue={changeSpecificationValue} spec={s}/>
     );
-    return (
-        <><div>
-            <p>{props.name}</p>
-            <Table style={{ width: "100%" }}>
-                {speciifications}
-                <tr><td colSpan={2} onClick={addSpecification}><Button>Добавить новую группу</Button></td></tr>
-            </Table>
-        </div>
-        </>
+    return (<div style={{ border: "1px solid gray", borderRadius: "8px", backgroundColor: "#ebe2e6", padding: "8px", margin:"5px 0 5px 0" }}>
+        <TextField
+            id="standard-multiline-flexible"
+            label="Название группы характеристик"
+            maxRows={1}
+            variant="standard"
+            style={{ width: "100%", margin:"0 0 20px 0" }}
+            defaultValue={props.specGroup.name}
+            onChange={changeGroupName}
+            
+        />
+
+        <Table style={{ width: "100%" }}>
+            {speciifications}
+        </Table>
+        <Button onClick={addSpecification} style={{ width: "100%" }}>Добавить новую характеристику</Button>
+    </div>
 
     );
 }
+const ProductSpecificationCreateTemplate = (props) => {
+    const changeSpecificationName =(e)=>{
+        props.changeSpecValue(props.spec,{name: e.currentTarget.value, value: props.spec.value});      
+    }
+    const changeSpecificationValue =(e)=>{
+        props.changeSpecValue(props.spec,{value: e.currentTarget.value, name: props.spec.name});      
+    }
+    return(
+        <tr>
+            <td>
+                <TextField
+                    id="standard-multiline-flexible"
+                    label="Название характеристики"
+                    defaultValue={props.name}
+                    maxRows={1}
+                    variant="standard"
+                    style={{ width: "100%" }}
+                    onChange={changeSpecificationName}
+                />
+            </td>
+            <td>
+
+                <TextField
+                    id="standard-multiline-flexible"
+                    label="Значение"
+                    variant="standard"
+                    onChange={changeSpecificationValue}
+                />
+            </td>
+        </tr>
+    )
+}
+
 export default ProductGroupSpecificationCreateTemplate;

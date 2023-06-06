@@ -92,7 +92,6 @@ export const addProductsInCart = (id) => {
 }
 
 export const deleteProductFromCart = (id) => {
-    debugger;
     return (dispatch) => {
         cartApi.removeProductFromCart(id)
             .then(data => {

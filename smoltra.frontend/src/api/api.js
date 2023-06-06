@@ -17,6 +17,24 @@ export const productApi = {
         .then(response =>{
             return response.data;
         })
+    },
+    createProduct(product){
+        const formData = new FormData();
+        console.log("createProduct");
+        console.log(product.images)
+        formData.append('name', product.name);
+        formData.append('price', product.price);
+        formData.append('description', product.description);
+        formData.append('SpecificationGroups',JSON.stringify(product.specififcationGroup));
+
+        for(let i=0;i<product.images?.length; i++){
+            formData.append('images', product.images[i]);
+        }
+
+        return instance.post(`product`,formData)
+            .then(response =>{
+                return response.data;
+            })
     }
 }
 export const cartApi = {
@@ -43,7 +61,6 @@ export const cartApi = {
         console.log("api");
         return instance.post(`cart`,{productId:id,count:1})
             .then(response =>{
-
                 return response.data;
             })
             .catch((err) => {

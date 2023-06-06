@@ -7,70 +7,79 @@ const CHANGE_SPECIFICATION_VALUE = "CHANGE_SPECIFICATION_VALUE";
 //state
 let initialState = {
     createProductPage: {
-        specificationGroups:[]
+        specificationGroups: []
     }
 }
 
 export const createProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_SPECIFICATION_GROUP: {
-            debugger;
-                return {...state,
-                    createProductPage :{
-                        ...state.createProductPage,
-                        specificationGroups :[...state.createProductPage.specificationGroups,{name:"Новая группа", specifications:[]}]
-                    }                        
-                    }                  
+            return {
+                ...state,
+                createProductPage: {
+                    ...state.createProductPage,
+                    specificationGroups: [...state.createProductPage.specificationGroups, { name: "Новая группа", specifications: [] }]
+                }
+            }
         }
         case CREATE_SPECIFICATION: {
-            debugger;  
             let group = state.createProductPage.specificationGroups?.find(x => x === action.group);
-            
-            if(group != null){
-                debugger;
-                group.specifications = [...group.specifications,{name:"Новая группа"}]
-                return {...state,
-                    createProductPage :{
+
+            if (group != null) {
+
+                group.specifications = [...group.specifications, { name: "Новая характеристика" }]
+                return {
+                    ...state,
+                    createProductPage: {
                         ...state.createProductPage,
-                        specificationGroups :[...state.createProductPage.specificationGroups]
-                    }     
-                }    
-            }                               
+                        specificationGroups: [...state.createProductPage.specificationGroups]
+                    }
+                }
+            }
         }
-        case CHANGE_NAME_SPECIFICATION_GROUP: { 
+        case CHANGE_NAME_SPECIFICATION_GROUP: {
             let group = state.createProductPage.specificationGroups?.find(x => x === action.group);
-            
-            if(group != null){
+
+            if (group != null) {
                 group.name = action.name;
-                return {...state,
-                    createProductPage :{
+                console.log(action.name)
+                return {
+                    ...state,
+                    createProductPage: {
                         ...state.createProductPage,
-                        specificationGroups :[...state.createProductPage.specificationGroups]
-                    }     
-                }    
-            }                               
+                        specificationGroups: [...state.createProductPage.specificationGroups]
+                    }
+                }
+            }
         }
         case CHANGE_SPECIFICATION_VALUE: {
             let group = state.createProductPage.specificationGroups?.find(x => x === action.group);
-            
-            if(group != null){
-                let specification = group.specifications.find(x => x === action.specification);
 
-                specification.name = action.name;
-                return {...state,
-                    createProductPage :{
-                        ...state.createProductPage,
-                        specificationGroups :[...state.createProductPage.specificationGroups]
-                    }     
-                }    
-            }                               
+            if (group != null) {
+                let specification = group.specifications.find(x => x === action.specification);
+                if (specification != null) {
+                    specification.name = action.newSpecification.name;
+                    specification.value = action.newSpecification.value;
+                    console.log(specification);
+
+                    return {
+                        ...state,
+                        createProductPage: {
+                            ...state.createProductPage,
+                            specificationGroups: [...state.createProductPage.specificationGroups]
+                        }
+                    }
+                }
+
+            }
         }
         default:
             return state;
     }
 }
 
-export const createSpecificationGroup = () => ({type: CREATE_SPECIFICATION_GROUP})
-export const createSpecification = (group) => ({type: CREATE_SPECIFICATION, group: group})
-export const changeNameSpecificationGroup = (group, name) => ({type: CHANGE_NAME_SPECIFICATION_GROUP, group: group, name: name})
-export const changeSpecificationValue = (group, specification, newSpecification) => ({type:CHANGE_SPECIFICATION_VALUE, group: group,specification:specification})
+export const createSpecificationGroup = () => ({ type: CREATE_SPECIFICATION_GROUP })
+export const createSpecification = (group) => ({ type: CREATE_SPECIFICATION, group: group })
+export const changeNameSpecificationGroup = (group, name) => ({ type: CHANGE_NAME_SPECIFICATION_GROUP, group: group, name: name })
+export const changeSpecificationValue = (group, specification, newSpecification) => 
+({ type: CHANGE_SPECIFICATION_VALUE, group: group, specification: specification,newSpecification:newSpecification })
