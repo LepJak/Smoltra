@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Newtonsoft.Json;
 using Smoltra.Application.Common.Interfaces;
 using Smoltra.Application.Common.Interfaces.Repositories;
 using Smoltra.Domain.Entities;
@@ -7,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Smoltra.Application.Products.Commands.CreateProduct
@@ -54,16 +58,30 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                     defaultImage = false;
                 }
             }
-            foreach(var specGroup in request.SpecificationGroups)
+
+            try
             {
-                var specGroupId = await _specificationGroupRepository
-                    .AddAsync(new ProductSpecificationGroup { ProductId = id , Title = specGroup.Name}, cancellationToken);
-                foreach(var spec in specGroup.Specifications)
+                if(request.SpecificationGroups != null)
                 {
-                     await _specificationRepository
-                    .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name }, cancellationToken);
+                    var specificationGroups = JsonConvert.DeserializeObject<List<SpecificatinGroupDto>>(request.SpecificationGroups);
+                    foreach (var specGroup in specificationGroups)
+                    {
+                        var specGroupId = await _specificationGroupRepository
+                            .AddAsync(new ProductSpecificationGroup { ProductId = id, Title = specGroup.Name }, cancellationToken);
+                        foreach (var spec in specGroup.Specifications)
+                        {
+                            await _specificationRepository
+                           .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name }, cancellationToken);
+                        }
+                    }
                 }
+                    
             }
+            catch
+            {
+
+            }
+            
             
             await _productRepository.SaveChangesAsync(cancellationToken);
             return id;

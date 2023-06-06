@@ -9,6 +9,8 @@ import Stack from '@mui/material/Stack';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import TextField from '@mui/material/TextField';
+import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateProduct = (props) => {
     let state = props.createProductPage;
@@ -21,9 +23,10 @@ const CreateProduct = (props) => {
         price: null,
         description: ""
     })
-
+    const navigate = useNavigate();
     const createNewProduct =()=>{
-        props.createProductaaaaaa(productInfo, selectedImages,state.specificationGroups);
+        props.createProduct(productInfo, selectedImages,state.specificationGroups);
+        navigate("/");
     }
     const changeName = (e) =>{
         setProductInfo({

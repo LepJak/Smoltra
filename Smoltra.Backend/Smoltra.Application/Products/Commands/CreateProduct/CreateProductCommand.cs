@@ -29,5 +29,6 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
     public class SpecificationDto
     {
         public string? Name { get; set; }
+        public string? Value { get; set; }
     }
 }

@@ -25,7 +25,7 @@ export const productApi = {
         formData.append('name', product.name);
         formData.append('price', product.price);
         formData.append('description', product.description);
-        formData.append('SpecificationGroups',JSON.stringify(product.specififcationGroup));
+        formData.append('SpecificationGroups',JSON.stringify(product.specifications));
 
         for(let i=0;i<product.images?.length; i++){
             formData.append('images', product.images[i]);

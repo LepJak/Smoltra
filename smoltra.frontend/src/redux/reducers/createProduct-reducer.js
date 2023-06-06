@@ -14,6 +14,7 @@ let initialState = {
 export const createProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_SPECIFICATION_GROUP: {
+            console.log("!!!");
             return {
                 ...state,
                 createProductPage: {

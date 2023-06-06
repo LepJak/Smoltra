@@ -10,7 +10,8 @@ const createProduct = (productInfo, images, specifications) => {
             name: productInfo.name,
             description: productInfo.description,
             price: productInfo.price,
-            images: normalImages
+            images: normalImages,
+            specifications: specifications
         }
         productApi.createProduct(product)
         .then(data=>{
@@ -30,11 +31,12 @@ const mapDispatchToProps = (dispatch) => {
         createProductaaaaaa: (productInfo, images, specifications) => {
             dispatch(createProduct(productInfo, images, specifications));
         },
-        createSpecificationGroup,
         createSpecification,
         changeNameSpecificationGroup,
         changeSpecificationValue
 
     }
 }
-export const CreateProductContainer = connect(mapStateToProps,mapDispatchToProps)(CreateProduct);
+export const CreateProductContainer = connect(mapStateToProps,{mapDispatchToProps, createProduct, createSpecificationGroup, createSpecification,
+    changeNameSpecificationGroup,
+    changeSpecificationValue})(CreateProduct);

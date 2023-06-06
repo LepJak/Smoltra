@@ -12,10 +12,10 @@ namespace Smoltra.Domain.Entities
     {
         public string? Name { get; set; }
         public ProductSpecificationGroup? SpecificationGroup { get; set; }
-        public Guid ProductSpecificationGroupId { get; set; }
+        public Guid? ProductSpecificationGroupId { get; set; }
         public List<SpecificationValue>? SpecificationValues { get; set; } = new List<SpecificationValue>();
-        public Guid DataTypeId { get; set; }
+        public Guid? DataTypeId { get; set; }
         public UnitsOfMeasurement? UnitsOfMeasurement { get; set; }
-        public Guid UnitsOfMeasurementId { get; set; }
+        public Guid? UnitsOfMeasurementId { get; set; }
     }
 }
