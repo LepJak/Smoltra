@@ -14,6 +14,7 @@ import CustomFooter from './components/Navbar/Footer';
 import Registration from './auth/Registration';
 import MainPage from './components/MainPage/MainPage';
 import {CreateProductContainer} from './components/administration/Products/CreateProduct/CreateProductContainer';
+import UpdateProductContainer from './components/administration/Products/UpdateProduct/UpdateProductContainer';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         <Route path="registration" element={<Registration/>} />
         <Route path="*" element={<MainPage />} />
         <Route path="createProduct" element={<CreateProductContainer/>}/>
+        <Route path="/updateProduct">
+          <Route path=":productId" element={<UpdateProductContainer/>}/>
+        </Route>       
         <Route path="cart" element={<CartContainer />} />
           <Route path="/products">
             <Route index element={<ProductsContainer />} />

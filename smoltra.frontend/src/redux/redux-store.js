@@ -5,13 +5,15 @@ import { cartReducer } from "./reducers/cart-reducer";
 import { createProductReducer } from "./reducers/createProduct-reducer";
 
 import thunkMiddleware from "redux-thunk";
+import { updateProductReducer } from "./reducers/updateProduct-reducer";
 
 let reducers = combineReducers(
     {
         productsReducer: productsReducer,
         productDetailsReducer: productDetailsReducer,
         cartReducer: cartReducer,
-        createProductReducer : createProductReducer
+        createProductReducer : createProductReducer,
+        updateProductReducer : updateProductReducer
     }
 );
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

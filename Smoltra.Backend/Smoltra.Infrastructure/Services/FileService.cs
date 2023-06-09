@@ -13,6 +13,22 @@ namespace Smoltra.Infrastructure.Services
 {
     public class FileService : IFileService
     {
+        //Переписать на вытягивания пути из конфига
+        public bool DeleteProductImage(Guid id)
+        {
+            var path = Directory.GetFiles("C:\\Users\\Евгений\\Desktop\\SMOLTRAIMAGES\\");
+            var file = path.FirstOrDefault(x => x.Contains(id.ToString()));
+            if(file != null)
+            {
+                if (File.Exists(file));
+                {
+                    File.Delete(file);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public PhysicalFileResult GetProductImage(Guid id)
         {
             var path = $"C:\\Users\\Евгений\\Desktop\\SMOLTRAIMAGES\\{id}.jpg";

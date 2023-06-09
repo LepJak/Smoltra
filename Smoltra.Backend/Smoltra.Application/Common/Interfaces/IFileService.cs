@@ -12,5 +12,6 @@ namespace Smoltra.Application.Common.Interfaces
     {
         public PhysicalFileResult GetProductImage(Guid id);
         public bool SaveProductImage(Guid id, IFormFile image);
+        public bool DeleteProductImage(Guid id);
     }
 }

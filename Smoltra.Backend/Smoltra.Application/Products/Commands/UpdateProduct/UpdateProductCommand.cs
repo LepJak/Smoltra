@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Smoltra.Application.Products.Queries.GetProductDetails.ProductDetailsVm;
 
 namespace Smoltra.Application.Products.Commands.UpdateProduct
 {
@@ -15,5 +17,8 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
         public string? Description { get; set; }
         public Guid CategoryId { get; set; }
         public Guid UserId { get; set; }
+        public List<Guid> DeletedImageIds { get; set; } = new List<Guid>();
+        public List<IFormFile> NewImages { get; set; } = new List<IFormFile>();
+        public string? SpecificationGroups { get; set; }
     }
 }
