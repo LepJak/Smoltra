@@ -32,42 +32,39 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.ProductId);
             
-            var category = await _categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken); 
+            //var category = await _categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken); 
             product.Name = request.Name;
             product.Description = request.Description;
             product.Price =request.Price;
             product.LastModifiedBy = request.UserId;
             product.LastModified = DateTime.Now;
-            product.Category= category;
-            _productRepository.Update(product);
+            //product.Category= category;
+            
+        
 
-            bool defaultImage = true;
             foreach (var image in request.NewImages)
             {
-                var imageId = await _imageRepository.AddAsync(new Image { ProductId = product.Id }, cancellationToken);
+                var imageId = await _imageRepository.AddAsync(new Image { ProductId = product.Id}, cancellationToken);
+                var efImage = await _imageRepository.GetByIdAsync(imageId, cancellationToken);
+                product?.Images?.Add(efImage);
                 _fileService.SaveProductImage(imageId, image);
-                if (defaultImage == true)
-                {
-                    product.GeneralImageId = imageId;
-                    defaultImage = false;
-                }
+                
             }
-            var genIm = product.Images?.FirstOrDefault();
 
-            foreach(var deletedImageId in request.DeletedImageIds)
+            foreach (var deletedImageId in request.DeletedImageIds)
             {
                 var image = await _imageRepository.GetByIdAsync(deletedImageId, cancellationToken);
                 if (image != null)
                 {
-                    _imageRepository.Remove(image);
+                    product?.Images?.Remove(image);
                     _fileService.DeleteProductImage(deletedImageId);
                 }
-                    
-
             }
+            var genIm = product.Images?.FirstOrDefault();
+
             if (genIm != null)
             {
-                product.GeneralImage = genIm;
+                product.GeneralImageForProduct = new GeneralImageForProduct { Image = genIm }; ;
             }
 
             foreach (var specificationGroup in product.SpecificationGroups)
@@ -91,16 +88,21 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
                         foreach (var spec in specGroup.Specifications)
                         {
                             await _specificationRepository
-                           .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name }, cancellationToken);
+                           .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name, Value =spec.Value }, cancellationToken);
                         }
                     }
                 }
+
+
+                
+
 
             }
             catch
             {
 
             }
+
             await _productRepository.SaveChangesAsync(cancellationToken);
 
 

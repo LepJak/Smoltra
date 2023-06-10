@@ -34,7 +34,7 @@ namespace Smoltra.Application.CartItems.Queries.GetCartItemList
                 .ForMember(p => p.Price, opt => opt
                 .MapFrom(p => p.Product != null ? p.Product.Price : 0))
                 .ForMember(p => p.ImageId, opt => opt
-                .MapFrom(p => p.Product != null ? p.Product.GeneralImageId : null))
+                .MapFrom(p => p.Product != null ? p.Product.GeneralImageForProduct.ImageId : null))
                 .ForMember(p => p.ProductName, opt => opt
                 .MapFrom(p => p.Product != null ? p.Product.Name : null));
         }

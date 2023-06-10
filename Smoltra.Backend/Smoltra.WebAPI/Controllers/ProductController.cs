@@ -51,7 +51,7 @@ namespace Smoltra.WebAPI.Controllers
 
         [HttpPut]
         public async Task<ActionResult>
-            Update([FromQuery] UpdateProductDto updateProductDto)
+            Update([FromForm] UpdateProductDto updateProductDto)
         {
             var query = _mapper.Map<UpdateProductCommand>(updateProductDto);
             await Mediator.Send(query);

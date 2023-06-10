@@ -3,7 +3,7 @@ import CreateProduct from "./UpdateProduct";
 import { productApi } from "../../../../api/api";
 import { withRouter } from "../../../../extensions/WithRoute";
 import axios from "axios";
-import { changeProductProp, setProduct,addImage, deleteImage,createSpecificationGroup} from "../../../../redux/reducers/updateProduct-reducer";
+import { changeProductProp,changeSpecificationValue, setProduct,addImage,changeNameSpecificationGroup, deleteImage,createSpecificationGroup, createSpecification} from "../../../../redux/reducers/updateProduct-reducer";
 import UpdateProduct from "./UpdateProduct";
 import React from "react";
 
@@ -23,8 +23,23 @@ class UpdateProductContainer extends React.Component{
              changeProductProp={this.props.changeProductProp}
              addImage={this.props.addImage}
              deleteImage={this.props.deleteImage}
-             createSpecificationGroup={this.props.createSpecificationGroup}/>)
+             createSpecificationGroup={this.props.createSpecificationGroup}
+             createSpecification={this.props.createSpecification}
+             changeNameSpecificationGroup={this.props.changeNameSpecificationGroup}
+             changeSpecificationValue={this.props.changeSpecificationValue}/>)
     }
+
+    
+}
+const updateProduct = (product) => {
+    return (dispatch) => {
+        productApi.updateProduct(product)
+        .then(data=>{
+            dispatch();
+        });
+
+    }
+
 }
 
 
@@ -49,6 +64,18 @@ const mapDispatchToProps = (dispatch) => {
         },
         createSpecificationGroup : () =>{
             dispatch(createSpecificationGroup())
+        },
+        createSpecification : (group) =>{
+            dispatch(createSpecification(group))
+        },
+        changeNameSpecificationGroup: (group, name)=>{
+            dispatch(changeNameSpecificationGroup(group, name))
+        },
+        changeSpecificationValue:(group, specification, newSpecification)=>{
+            dispatch(changeSpecificationValue(group, specification, newSpecification))
+        },
+        updateProduct: (product) =>{
+            dispatch(updateProduct(product))
         }
     }
 }

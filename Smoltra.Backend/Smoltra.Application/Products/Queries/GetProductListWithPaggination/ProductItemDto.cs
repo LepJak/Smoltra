@@ -20,7 +20,7 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Product, ProductItemDto>()
-                .ForMember(p => p.ImageId, opt => opt.MapFrom(p => p.GeneralImageId))
+                .ForMember(p => p.ImageId, opt => opt.MapFrom(p => p.GeneralImageForProduct.ImageId))
                 .ForMember(p => p.Category, opt => opt.MapFrom(p => p.Category != null ? p.Category.Name : null));
         }
     }

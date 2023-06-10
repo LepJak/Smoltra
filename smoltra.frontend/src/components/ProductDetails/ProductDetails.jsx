@@ -25,8 +25,8 @@ const ProductDetails = (props) => {
     };
     
     let state = props.productDetailsPage;
+    console.log(state?.product);
     let images = state?.product?.images?.map(i => <ListGroupItem><Image width="100%" onError={handleImageError} src={getImagePath(i?.id)} /></ListGroupItem>);
-    debugger;
     return (
         <div>
             <Container>
@@ -62,7 +62,7 @@ const ProductDetails = (props) => {
                             {state.product.description}
                         </Tab>
                         <Tab eventKey="specifications" title="Характеристики">
-                            <Specifications specificationsGroup={state.product.specificationGroups} />
+                            <Specifications specificationGroups={state.product.specificationGroups} />
                         </Tab>
                     </Tabs>
                 </Row>

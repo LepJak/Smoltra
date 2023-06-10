@@ -55,8 +55,9 @@ const ProductSpecificationCreateTemplate = (props) => {
                 <TextField
                     id="standard-multiline-flexible"
                     label="Название характеристики"
-                    defaultValue={props.name}
+                    value={props.spec.name}
                     maxRows={1}
+                    
                     variant="standard"
                     style={{ width: "100%" }}
                     onChange={changeSpecificationName}
@@ -65,6 +66,7 @@ const ProductSpecificationCreateTemplate = (props) => {
             <td>
 
                 <TextField
+                 value={props.spec.value}
                     id="standard-multiline-flexible"
                     label="Значение"
                     variant="standard"

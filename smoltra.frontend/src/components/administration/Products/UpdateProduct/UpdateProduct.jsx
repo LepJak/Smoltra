@@ -18,11 +18,10 @@ const UpdateProduct = (props) => {
     const [selectedImages, setSelectedImage] = useState([]);
 
     
-
     const navigate = useNavigate();
-    const createNewProduct =()=>{
-        props.createProduct(null, selectedImages,state.specificationGroups);
-        navigate("/");
+    const updateProduct =()=>{
+        props.updateProduct(state.product);
+        navigate(`/products/${state.product.id}`);
     }
     const changeField = (e) =>{
         props.changeProductProp(e.target.id, e.currentTarget.value)
@@ -31,7 +30,6 @@ const UpdateProduct = (props) => {
     const inputRef = useRef(null);
 
     const handleUploadClick = () => {
-        // 👇 We redirect the click event onto the hidden input element
         inputRef.current?.click();
     };
     const handleFileChange = (e) => {
@@ -57,14 +55,6 @@ const UpdateProduct = (props) => {
     const deleteImage = (img) => {
         props.deleteImage(img);
 
-        let findedImage = selectedImages.find(x => x == img);
-        if (findedImage != null) {
-             const index = selectedImages.indexOf(findedImage);
-            if (index > -1) { // only splice array when item is found
-                selectedImages.splice(index, 1);
-                setSelectedImage([...selectedImages]); // 2nd parameter means remove one item only
-            }
-        }
     }
     //console.log(state?.product.images)
     let images = state?.product.images?.map(x =>
@@ -72,7 +62,7 @@ const UpdateProduct = (props) => {
     );
     return (
         <>
-            <h2>Добавление товара</h2>
+            <h2>Обновление товара товара</h2>
             <Accordion defaultActiveKey={['0', '1', '2', '3']} alwaysOpen>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Общая информация</Accordion.Header>
@@ -139,7 +129,7 @@ const UpdateProduct = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <Button variant="success" onClick={createNewProduct} style={{ width: "100%", margin: "10px 0 10px 0" }} >Добавить товар</Button>
+            <Button variant="success" onClick={updateProduct} style={{ width: "100%", margin: "10px 0 10px 0" }} >Добавить товар</Button>
             <input
                 id="image-uploader"
                 type="file"

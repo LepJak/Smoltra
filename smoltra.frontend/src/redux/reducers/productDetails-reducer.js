@@ -8,7 +8,7 @@ let initialState = {
             name: "Name",
             price: 200,
             description: "Description",
-            specificationsGroup: [
+            specificationGroups: [
                 {
                     name: "specificationGroup1",
                     specifications: [

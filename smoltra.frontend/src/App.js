@@ -15,6 +15,7 @@ import Registration from './auth/Registration';
 import MainPage from './components/MainPage/MainPage';
 import {CreateProductContainer} from './components/administration/Products/CreateProduct/CreateProductContainer';
 import UpdateProductContainer from './components/administration/Products/UpdateProduct/UpdateProductContainer';
+import CreateNews from './components/administration/Products/News/CreateNews/CreateNews';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="registration" element={<Registration/>} />
         <Route path="*" element={<MainPage />} />
         <Route path="createProduct" element={<CreateProductContainer/>}/>
+        <Route path="createNews" element={<CreateNews/>}/>
         <Route path="/updateProduct">
           <Route path=":productId" element={<UpdateProductContainer/>}/>
         </Route>       

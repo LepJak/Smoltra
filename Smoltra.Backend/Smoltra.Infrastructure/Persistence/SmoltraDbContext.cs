@@ -24,17 +24,13 @@ namespace Smoltra.Infrastructure.Persistence
         public DbSet<SpecificationValue> SpecificationValues { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<GeneralImageForProduct> GeneralImageForProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //TODO : Add configurations
             builder.ApplyConfiguration(new ProductConfiguration());
-            builder.Entity<Product>().HasMany(p => p.Images)
-                .WithOne(i => i.Product)
-                .HasForeignKey(e => e.ProductId);
-            builder.Entity<Product>().HasOne(p => p.GeneralImage)
-                .WithOne(i => i.ProductForGeneral)
-                .HasForeignKey<Image>(p => p.ProductForGeneralId);
+           
 
             base.OnModelCreating(builder);
         }

@@ -54,9 +54,10 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                 _fileService.SaveProductImage(imageId, image);
                 if (defaultImage == true)
                 {
-                    product.GeneralImageId = imageId;
+                    product.GeneralImageForProduct = new GeneralImageForProduct { ImageId =  imageId };
                     defaultImage = false;
                 }
+                
             }
 
             try
@@ -71,7 +72,7 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                         foreach (var spec in specGroup.Specifications)
                         {
                             await _specificationRepository
-                           .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name }, cancellationToken);
+                           .AddAsync(new ProductSpecification { ProductSpecificationGroupId = specGroupId, Name = spec.Name, Value = spec.Value }, cancellationToken);
                         }
                     }
                 }

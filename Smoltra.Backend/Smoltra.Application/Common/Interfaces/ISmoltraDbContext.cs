@@ -15,10 +15,11 @@ namespace Smoltra.Application.Common.Interfaces
         DbSet<ProductSpecificationGroup> ProductSpecificationGroups { get; set; }
         DbSet<UnitsOfMeasurement> UnitsOfMeasurements { get; set; }
         DbSet<Image> ProductImages { get; set; }
-        DbSet<SpecificationValue> SpecificationValues { get; set; }
+       // DbSet<SpecificationValue> SpecificationValues { get; set; }
         DbSet<CartItem> CartItems { get; set; }
         DbSet<Order> Orders { get; set; }   
         DbSet<OrderItem> OrderItems { get; set; }
+        DbSet<GeneralImageForProduct> GeneralImageForProducts { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         DbSet<T> Set<T>() where T : class;

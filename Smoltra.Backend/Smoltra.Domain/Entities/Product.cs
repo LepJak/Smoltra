@@ -13,9 +13,9 @@ namespace Smoltra.Domain.Entities
         public decimal Price { get; set; }
         public string? Description { get; set; }
         public Category? Category { get; set; }
-        public Guid? CategoryId { get; set; }
-        public Image? GeneralImage { get; set; }     
-        public Guid? GeneralImageId { get; set; }
+        public Guid? CategoryId { get; set; }   
+        public GeneralImageForProduct? GeneralImageForProduct { get; set; }
+        public Guid? GeneralImageForProductId { get; set; }
         public ICollection<Image>? Images { get; set; }
         public List<ProductSpecificationGroup> SpecificationGroups { get; set; }
             = new List<ProductSpecificationGroup>();

@@ -10,6 +10,7 @@ const CHANGE_SPECIFICATION_VALUE = "CHANGE_SPECIFICATION_VALUE";
 let initialState = {
     updateProductPage: {
         product: {
+            id:null,
             name: "",
             description: "",
             price: "",
@@ -24,16 +25,19 @@ export const updateProductReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PRODUCT: {          
             var images = action.product.images.map(x =>({id: x.id,src:`https://localhost:7175/api/image/${x.id}`}));
-            console.log(images);
+            console.log(action.product);
             return {
                 ...state,
                 updateProductPage: {
                     ...state.updateProductPage,
                     product: {
+                        deletedImages:[],
+                       id:action.product.id,
                        name : action.product.name,                      
                        price: action.product.price,
                        description: action.product.description,
                        images : images,
+                       specificationGroups :action.product.specificationGroups
                     }                   
                 }
             }
@@ -72,7 +76,8 @@ export const updateProductReducer = (state = initialState, action) => {
                 const index = images.indexOf(findedImage);
                 if (index > -1) {
                     images.splice(index, 1);
-                    deletedImages.push(findedImage);
+                    if(state.updateProductPage.product != null)
+                        deletedImages.push(findedImage);
                 }
             }
             return {
@@ -92,7 +97,7 @@ export const updateProductReducer = (state = initialState, action) => {
             return {
                 ...state,
                 updateProductPage: {
-                    ...state.v,
+                    ...state.updateProductPage,
                     product: {
                         ...state.updateProductPage.product,
                         specificationGroups: [...state.updateProductPage.product.specificationGroups, { name: "Новая группа", specifications: [] }]
@@ -102,9 +107,7 @@ export const updateProductReducer = (state = initialState, action) => {
         }
         case CREATE_SPECIFICATION: {
             let group = state.updateProductPage.product.specificationGroups?.find(x => x === action.group);
-
             if (group != null) {
-
                 group.specifications = [...group.specifications, { name: "Новая характеристика" }]
                 return {
                     ...state,
@@ -112,46 +115,49 @@ export const updateProductReducer = (state = initialState, action) => {
                         ...state.updateProductPage,
                         product : {
                             ...state.updateProductPage.product, 
-                            specificationGroups: [...state.createProductPage.specificationGroups]
+                            specificationGroups: [...state.updateProductPage.product.specificationGroups]
                         }                        
                     }
                 }
             }
         }
         case CHANGE_NAME_SPECIFICATION_GROUP: {
-            let group = state.createProductPage.specificationGroups?.find(x => x === action.group);
+            let group = state.updateProductPage.product.specificationGroups?.find(x => x === action.group);
 
             if (group != null) {
                 group.name = action.name;
-                console.log(action.name)
                 return {
                     ...state,
-                    createProductPage: {
-                        ...state.createProductPage,
-                        specificationGroups: [...state.createProductPage.specificationGroups]
+                    updateProductPage: {
+                        ...state.updateProductPage,
+                        product:{
+                            ...state.updateProductPage.product,
+                            specificationGroups: [...state.updateProductPage.product.specificationGroups]
+                        }
+                        
                     }
                 }
             }
         }
         case CHANGE_SPECIFICATION_VALUE: {
-            let group = state.createProductPage.specificationGroups?.find(x => x === action.group);
-
+            let group = state.updateProductPage.product.specificationGroups?.find(x => x === action.group);
             if (group != null) {
                 let specification = group.specifications.find(x => x === action.specification);
                 if (specification != null) {
                     specification.name = action.newSpecification.name;
                     specification.value = action.newSpecification.value;
                     console.log(specification);
-
                     return {
                         ...state,
-                        createProductPage: {
-                            ...state.createProductPage,
-                            specificationGroups: [...state.createProductPage.specificationGroups]
+                        updateProductPage: {
+                            ...state.updateProductPage,
+                            product: {
+                                ...state.updateProductPage.product,                               
+                            }
+                            
                         }
                     }
                 }
-
             }
         }
         default:
@@ -164,3 +170,7 @@ export const changeProductProp = (nameProperty, property) => ({ type: CHANGE_PRO
 export const addImage = (file) => ({type: ADD_IMAGES, file});
 export const deleteImage = (image) => ({type: DELETE_IMAGE, image});
 export const createSpecificationGroup = () => ({ type: CREATE_SPECIFICATION_GROUP })
+export const createSpecification = (group) => ({ type: CREATE_SPECIFICATION, group: group })
+export const changeSpecificationValue = (group, specification, newSpecification) => 
+({ type: CHANGE_SPECIFICATION_VALUE, group: group, specification: specification,newSpecification:newSpecification })
+export const changeNameSpecificationGroup = (group, name) => ({ type: CHANGE_NAME_SPECIFICATION_GROUP, group: group, name: name })

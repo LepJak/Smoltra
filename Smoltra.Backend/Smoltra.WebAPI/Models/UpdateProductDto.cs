@@ -18,7 +18,9 @@ namespace Smoltra.WebAPI.Models
         public string? SpecificationGroups { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<UpdateProductDto, UpdateProductCommand>(); ;
+            profile.CreateMap<UpdateProductDto, UpdateProductCommand>()
+                .ForMember(p => p.DeletedImageIds, opt => opt.MapFrom(p => p.DeletedImageIds))
+                .ForMember(p => p.NewImages, opt => opt.MapFrom(p => p.NewImages));
         }
     }
 }

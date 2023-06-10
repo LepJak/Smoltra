@@ -21,23 +21,22 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
                     .Skip((multiplierSkip - 1) * countProducts)
                     .Take(countProducts)
                     .Include(p => p.Category)
-                    .Include(p => p.GeneralImage)              
+                    .Include(p => p.GeneralImageForProduct)              
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
             return products;
         }
         public override async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _context.Products               
+            var result = await _context.Products
+                .Include(p => p.GeneralImageForProduct)
                 .Include(product => product.Category)
                 .Include(product => product.SpecificationGroups)
                 .ThenInclude(specificationGroup => specificationGroup != null ? specificationGroup.ProductSpecifications : null)
-                .ThenInclude(specification => specification.SpecificationValues)
                 .Include(product => product.SpecificationGroups)
                 .ThenInclude(specificationGroup => specificationGroup.ProductSpecifications)
                 .ThenInclude(specification => specification.UnitsOfMeasurement)
                 .Include(product => product.Images)
-                .Include(p => p.Images)
                 .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
 
             return result;

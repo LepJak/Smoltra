@@ -35,6 +35,35 @@ export const productApi = {
             .then(response =>{
                 return response.data;
             })
+    },
+    updateProduct(product){
+        console.log(product);
+        const formData = new FormData();
+        console.log("updateProduct");
+        formData.append('productId', product.id);
+        formData.append('name', product.name);
+        formData.append('price', product.price);
+        formData.append('description', product.description);
+        formData.append('SpecificationGroups',JSON.stringify(product.specificationGroups));
+
+        let newImages =  product.images?.filter(x => x.id == null);
+        for(let i=0;i<newImages?.length; i++){
+            if(product.images[i]?.file!= null)
+                formData.append('newImages', product.images[i]?.file);
+        }
+
+        for(let i=0;i<product.deletedImages?.length; i++){
+            {
+                formData.append('deletedImageIds', product.deletedImages[i]?.id);
+            }
+                
+        }
+        
+
+        return instance.put(`product`,formData)
+            .then(response =>{
+                return response.data;
+            })
     }
 }
 export const cartApi = {
