@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Smoltra.Infrastructure.Persistence.Repositories
 {
-    public class NewsRepository : GenericRepository<News>
+    public class NewsRepository : GenericRepository<News>, INewsRepository
     {
         public NewsRepository(ISmoltraDbContext context) : base(context)
         {

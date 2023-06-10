@@ -30,6 +30,7 @@ namespace Smoltra.Application.NewsEvents.Commands.UpdateNews
             news.LastModified = DateTime.Now;
             news.Content = request.Content;
             news.Title = request.Title;
+            news.Annotation = request.Annotation;
 
 
             await _newsRepository.SaveChangesAsync(cancellationToken);

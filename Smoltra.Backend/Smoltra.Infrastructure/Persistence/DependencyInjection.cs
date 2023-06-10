@@ -30,6 +30,7 @@ namespace Smoltra.Infrastructure.Persistence
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<ISpecificationRepository, SpecificationRepository>();
             services.AddScoped<ISpecificationGroupRepository, SpecificationGroupRepository>();
+            services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<IFileService, FileService>();
             return services;
         }

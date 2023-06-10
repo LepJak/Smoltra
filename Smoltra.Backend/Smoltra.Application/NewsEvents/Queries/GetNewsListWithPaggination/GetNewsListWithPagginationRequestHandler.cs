@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Smoltra.Application.NewsEvents.Queries.GetNewsListWithPaggination
 {
-    public class GetNewsListWithPagginationRequestHandler : IRequestHandler<GetNewsListWithPagginationRequest, NewsListVm>
+    public class GetNewsListWithPagginationRequestHandler : IRequestHandler<GetNewsListWithPagginationQuery, NewsListVm>
     {
         public GetNewsListWithPagginationRequestHandler(INewsRepository repository, IMapper mapper) =>
             (_mapper, _repository) = (mapper, repository);
@@ -19,7 +19,7 @@ namespace Smoltra.Application.NewsEvents.Queries.GetNewsListWithPaggination
         private readonly INewsRepository _repository;
 
         public async Task<NewsListVm>
-            Handle(GetNewsListWithPagginationRequest request, CancellationToken cancellationToken)
+            Handle(GetNewsListWithPagginationQuery request, CancellationToken cancellationToken)
         {
 
             var products = await _repository

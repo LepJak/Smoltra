@@ -9,7 +9,7 @@ namespace Smoltra.Application.Common.Interfaces.Repositories
 {
     public interface INewsRepository : IGenericRepository<News>
     {
-        Task<List<Product>> GetListByPagginationAsync(int countProducts,
+        Task<List<News>> GetListByPagginationAsync(int countProducts,
                 int multiplierSkip, CancellationToken cancellationToken);
     }
 }

@@ -26,7 +26,8 @@ namespace Smoltra.Application.NewsEvents.Commands.CreateNews
                 Title = request.Title,
                 Content = request.Content,
                 CreatedBy = request.UserId,
-                Created = DateTime.Now
+                Created = DateTime.Now,
+                Annotation = request.Annotation,
             };
             var id = await _newsRepository.AddAsync(news, cancellationToken);
 

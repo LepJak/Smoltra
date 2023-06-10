@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Smoltra.Application.NewsEvents.Queries.GetNewsListWithPaggination
 {
-    public class GetNewsListWithPagginationRequest : IRequest<NewsListVm>
+    public class GetNewsListWithPagginationQuery : IRequest<NewsListVm>
     {
         public int NumberPage { get; set; }
         public int CountProducts { get; set; }

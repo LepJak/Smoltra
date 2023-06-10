@@ -12,6 +12,7 @@ namespace Smoltra.Application.NewsEvents.Commands.UpdateNews
         public Guid NewsId { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }
+        public string? Annotation { get; set; }
         public Guid UserId { get; set; }
     }
 }
