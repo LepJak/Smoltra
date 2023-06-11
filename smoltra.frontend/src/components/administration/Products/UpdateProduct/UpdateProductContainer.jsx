@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import CreateProduct from "./UpdateProduct";
 import { productApi } from "../../../../api/api";
 import { withRouter } from "../../../../extensions/WithRoute";
 import axios from "axios";
