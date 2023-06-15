@@ -4,6 +4,7 @@ const ADD_PRODUCT_GUID_IN_CART = 'ADD_PRODUCTGUID_IN_CART';
 const SET_PRODUCTS_GUIDS_FROM_CART = 'SET_PRODUCTS_GUIDS_FROM_CART';
 const SET_PRODUCTS_IN_CART = 'SET_PRODUCTS_IN_CART';
 const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
+const CHANGE_COUNT = 'CHANGE_COUNT';
 
 let initialState = {
     items: [
@@ -72,11 +73,20 @@ export const cartReducer = (state = initialState, action) => {
                 items: action.products
             }
         }
+        case CHANGE_COUNT: {
+            var  item = state.items.find(x => x === action.item);
+            item.count = action.count;
+            return {
+                ...state,
+                ietms:[...state.items]
+            }
+        }
         default:
             return state;
     }
 }
 
+const changeCount = (item, count) =>({ type: CHANGE_COUNT, item, count })
 const setProductInCart = (product) => ({ type: ADD_PRODUCT_GUID_IN_CART, product })
 const setProductsInCart = (products) => ({ type: SET_PRODUCTS_IN_CART, products })
 const setProductsGuidFromCart = (productsGuidsFromCart) => ({ type: SET_PRODUCTS_GUIDS_FROM_CART, productsGuidsFromCart })
@@ -87,6 +97,16 @@ export const addProductsInCart = (id) => {
         cartApi.addProductInCart(id)
             .then(data => {
                 dispatch(setProductInCart(id));
+            });
+    }
+}
+
+export const changeCountInCart = (item,count) =>{
+    return (dispatch) => {
+        console.log(count)
+        cartApi.updateCartItem(item.cartItemId, count)
+            .then(data => {
+                dispatch(changeCount(item,count));
             });
     }
 }

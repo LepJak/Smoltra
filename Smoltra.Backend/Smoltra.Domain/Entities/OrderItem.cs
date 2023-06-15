@@ -14,5 +14,7 @@ namespace Smoltra.Domain.Entities
         public Order? Order { get; set; }
         public Guid OrderId { get; set; }
         public int Count { get; set; }
+        public decimal Price { get; set; }
+        public decimal PriceForUnit { get; set; }
     }
 }

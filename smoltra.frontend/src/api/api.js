@@ -74,6 +74,12 @@ export const cartApi = {
                 return response.data;
             })
     },
+    updateCartItem(id, count) {
+        return instance.put(`cart`, {cartItemId: id, count: count})
+            .then(response => {
+                return response.data;
+            })
+    },
     getProductsGuidsFromCart() {
         return instance.get(`cart/getProductsGuid`)
             .then(response => {

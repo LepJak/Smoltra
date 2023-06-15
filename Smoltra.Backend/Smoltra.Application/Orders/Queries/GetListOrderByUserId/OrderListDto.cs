@@ -20,19 +20,20 @@ namespace Smoltra.Application.Orders.Queries.GetListOrderByUserId
     public class OrderListItemDto : IMapFrom<Order>
     {
         public Guid Id { get; set; }
-
         public int CountItems { get; set; }
         public decimal TotalPrice { get; set; }
-        public DateTime DateCreate { get; set; }
+        public DateTime DateCreated { get; set; }
+        public int State { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderListItemDto>()
-                .ForMember(p => p.DateCreate, opt => opt.MapFrom(p => p.Created))
+                .ForMember(p => p.DateCreated, opt => opt.MapFrom(p => p.Created))
+                .ForMember(p => p.State, opt => opt.MapFrom(p => (int)p.State))
                 .ForMember(p => p.CountItems, opt => opt.MapFrom(p => p.OrderItems.Sum(x => x.Count)))
                 .ForMember(p => p.TotalPrice, opt => opt
                 .MapFrom(p => p.OrderItems.Sum
-                (x => x.Product != null ? x.Product.Price * x.Count : 0)));
+                (x => x.Price)));
         }
     }
 

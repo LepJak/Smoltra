@@ -2,20 +2,20 @@
 using MediatR;
 using Smoltra.Application.Common.Exceptions;
 using Smoltra.Application.Common.Interfaces.Repositories;
-using Smoltra.Application.Orders.AddOrderItems;
+using Smoltra.Application.Orders.Queries.GetOrderDetails;
 using Smoltra.Domain.Entities;
+using Smoltra.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Smoltra.Application.Orders.Queries.GetOrderDetails
+namespace Smoltra.Application.Orders.ChangeOrderState
 {
-    public class GetOrderDetailsQueryHandler
-        : IRequestHandler<GetOrderDetailsQuery, OrderDetailsVm>
+    internal class ChangeOrderStateCommandHandler : IRequestHandler<ChangeOrderStateCommand, Unit>
     {
-        public GetOrderDetailsQueryHandler(IOrderRepository orderRepository,
+        public ChangeOrderStateCommandHandler(IOrderRepository orderRepository,
             IMapper mapper
             )
             => (_orderRepository, _mapper)
@@ -24,23 +24,16 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public async Task<OrderDetailsVm> Handle(GetOrderDetailsQuery request,
+        public async Task<Unit> Handle(ChangeOrderStateCommand request,
             CancellationToken cancellationToken)
         {
             var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
-            if(order == null ) 
+            if(order == null || order.UserId != request.UserId)
                 throw new NotFoundException(nameof(Order), request.OrderId);
 
-            var result = _mapper.Map<List<OrderItemDto>>(order.OrderItems);
-
-            return new OrderDetailsVm
-            {
-                State = (int) order.State, 
-                Created= order.Created,
-                OrderId = order.Id,
-                OrdersItems = result
-            };
-
+            order.State = (OrderState)request.NewState;
+            await _orderRepository.SaveChangesAsync(cancellationToken);
+            return Unit.Value;
         }
     }
 }
