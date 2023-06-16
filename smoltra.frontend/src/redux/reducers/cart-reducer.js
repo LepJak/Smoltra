@@ -1,4 +1,4 @@
-import { cartApi } from "../../api/api";
+import { cartApi, orderApi } from "../../api/api";
 
 const ADD_PRODUCT_GUID_IN_CART = 'ADD_PRODUCTGUID_IN_CART';
 const SET_PRODUCTS_GUIDS_FROM_CART = 'SET_PRODUCTS_GUIDS_FROM_CART';
@@ -7,30 +7,7 @@ const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
 const CHANGE_COUNT = 'CHANGE_COUNT';
 
 let initialState = {
-    items: [
-        {
-            image: null,
-            name: "Nam324444444444444444444444444444444444444444444444444444444444444444444444444444444e",
-            count: 1,
-            price: 1000
-        },
-        {
-            image: null,
-            name: "Name",
-            count: 1,
-            price: 1000
-        }, {
-            image: null,
-            name: "Name",
-            count: 1,
-            price: 1000
-        }, {
-            image: null,
-            name: "Name",
-            count: 1,
-            price: 1000
-        }
-    ],
+    items: [],
     productsGuidFromCart: []
 };
 
@@ -52,11 +29,11 @@ export const cartReducer = (state = initialState, action) => {
         }
         case REMOVE_PRODUCT_FROM_CART: {
             let i = 0;
-            console.log(state.items);
             let arr = [...state.items];
             while (i < arr.length) {
                 if (arr[i].cartItemId === action.id) {
                   arr.splice(i, 1);
+                  break;
                 } else {
                   ++i;
                 }
@@ -76,9 +53,10 @@ export const cartReducer = (state = initialState, action) => {
         case CHANGE_COUNT: {
             var  item = state.items.find(x => x === action.item);
             item.count = action.count;
+            let arr = [...state.items];
             return {
                 ...state,
-                ietms:[...state.items]
+                items:arr
             }
         }
         default:
@@ -135,6 +113,17 @@ export const getProductsGuidsFromCart = () => {
             .then(data => {
                 console.log(data.itemsGuidList)
                 dispatch(setProductsGuidFromCart(data.itemsGuidList))
+            });
+    }
+}
+export const cretateOrder = (items) => {
+    console.log(items);
+    let guids = items.map(x => x.cartItemId)
+    console.log(guids);
+    return (dispatch) => {
+        let data = orderApi.createOrder({orderItems:guids})
+            .then(data => {
+                guids.forEach(x => dispatch(removeProductFromCart(x)))             
             });
     }
 }

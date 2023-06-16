@@ -8,7 +8,6 @@ using Smoltra.WebAPI.Models;
 
 namespace Smoltra.WebAPI.Controllers
 {
-    [Authorize]
     public class OrderController : BaseController
     {
         public OrderController(IMapper mapper) =>

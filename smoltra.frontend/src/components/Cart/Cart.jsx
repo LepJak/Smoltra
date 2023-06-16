@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
+import { cretateOrder } from "../../redux/reducers/cart-reducer";
 import CartItem from "./CratItem"
    
 const Cart = (props) =>{
@@ -9,9 +10,15 @@ const Cart = (props) =>{
         orders = "!!!";
         console.log("Э!");
     }
-    orders = state.map(p => <CartItem order={p} deleteProductFromCart={props.deleteProductFromCart}/>); 
-    return(<Container>
+    const cretateOrder =() =>{
+        props.cretateOrder(props.items)
+    }
+    orders = state.map(p => <CartItem order={p} deleteProductFromCart={props.deleteProductFromCart} changeCountInCart={props.changeCountInCart}/>); 
+    return(<Container style={{height:"100%"}}>
         <Row className="justify-content-center">{(orders.length == 0) && <h3>Корзина пуста!</h3>} {orders}</Row>      
+        <div className="text-center text-lg-end" style={{marginTop:'auto'}}>
+                <Button style={{fontSize:"25px"}} onClick={cretateOrder}>Оформить заказ</Button>
+        </div>
         </Container>)
 }
 

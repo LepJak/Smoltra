@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 import Cart from "./Cart";
-import { getProductsInCart,deleteProductFromCart } from "../../redux/reducers/cart-reducer";
+import { getProductsInCart,deleteProductFromCart, changeCountInCart, cretateOrder } from "../../redux/reducers/cart-reducer";
 
 
 class CartContainer extends React.Component{
@@ -14,7 +14,7 @@ class CartContainer extends React.Component{
    }
 
     render(){
-     return(<Cart {...this.props} />);
+     return(<Cart {...this.props}/>);
     }
  }
  
@@ -31,6 +31,12 @@ const mapDispatchToProps = (dispatch) => {
         deleteProductFromCart: (id) => {
             dispatch(deleteProductFromCart(id));
         },
+        changeCountInCart:(item, count) =>{
+            dispatch(changeCountInCart(item, count))
+        },
+        cretateOrder:(items) =>{
+            dispatch(cretateOrder(items))
+        }
 
     }
 }

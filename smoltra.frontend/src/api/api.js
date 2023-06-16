@@ -145,3 +145,11 @@ export const newsApi = {
             })
     }
 }
+export const orderApi = {
+    createOrder(order) {
+        return instance.post(`order`,{order})
+            .then(response => {
+                return response.data;
+            })
+    },
+}
