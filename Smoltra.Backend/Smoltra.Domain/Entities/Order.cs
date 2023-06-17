@@ -1,4 +1,5 @@
 ﻿using Smoltra.Domain.Common;
+using Smoltra.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Smoltra.Domain.Entities
         public string? Description { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         = new();
+        public OrderState State { get; set; }
     }
 }
