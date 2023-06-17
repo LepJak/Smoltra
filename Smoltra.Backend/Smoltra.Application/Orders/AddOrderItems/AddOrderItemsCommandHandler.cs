@@ -23,7 +23,7 @@ namespace Smoltra.Application.Orders.AddOrderItems
             CancellationToken cancellationToken)
         {
             if (request.OrderItems.Count == 0)
-                throw new ArgumentException("Products count cannot be equal to 0");
+                throw new ArgumentException("Products count equal to 0");
             var order = new Order
             {
                 UserId = request.UserId,
