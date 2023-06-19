@@ -23,42 +23,59 @@ import MyOrderListContainer from './components/Orders/MyOrderList/MyOrderListCon
 import OrderDetailsContainer from './components/Orders/OrderDetails/OrderDetailsContainer';
 import UpdateOrderContainer from './components/administration/Products/UpdateOrder/UpdateOrderContainer';
 import Protected from './utils/protectedRoute'
-
+import store from './redux/redux-store';
+import { useEffect } from 'react';
+import { loadUser, loadUserFromStorage } from './services/userService';
+import AuthProvider from './utils/authProvider';
+import { Provider } from 'react-redux';
+import userManager from './services/userService';
+import AboutUs from './components/AboutUs/AboutUs';
 
 function App() {
+  //loadUser();
+  useEffect(() => {
+    // fetch current user from cookies
+    //loadUser()
+    loadUserFromStorage(store)
+  }, [])
   return (
 
-    <Container className="justify-content-center;" style={{ height: '100%', backgroundColor: 'white', minHeight: "100vh", padding: "0", display: 'flex', flexDirection: 'column' }}>
-      <CustomNavbar />
-      <BrowserRouter className="justify-content-center;">
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="*" element={<MainPage />} />
-          <Route path="createProduct" element={<CreateProductContainer />} />
-          <Route path="createNews" element={<CreateNewsContainer />} />
-          <Route path="/news"  >
-            <Route index element={<NewsDetailsContainer />} />
-            <Route path=":productId" element={<NewsDetailsContainer />} />
-          </Route>
-          <Route path="/orders">
-            <Route index element={<MyOrderListContainer />} />
-            <Route path=":productId" element={<OrderDetailsContainer />} />
-          </Route>
-          <Route path="/updateOrder/:productId"  element={<Protected component={UpdateOrderContainer} />} />
-          <Route path="/updateNews/:productId" element={<UpdateNewsContainer />} />
-          <Route path="/updateProduct">
-            <Route path=":productId" element={<UpdateProductContainer />} />
-          </Route>
-          <Route path="cart" element={<CartContainer />} />
-          <Route path="/products">
-            <Route index element={<ProductsContainer />} />
-            <Route path=":productId" element={<ProductDetailsContainerWithRoute />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      <CustomFooter />
-    </Container>
+    <Provider store={store}>
+      <AuthProvider userManager={userManager} store={store}>
+      <Container className="justify-content-center;" style={{ height: '100%', backgroundColor: 'white', minHeight: "100vh", padding: "0", display: 'flex', flexDirection: 'column' }}>
+        <CustomNavbar />
+        <BrowserRouter className="justify-content-center;">
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="aboutUs" element={<AboutUs />} />
+            <Route path="registration" element={<Registration />} />
+            <Route path="*" element={<MainPage />} />
+            <Route path="createProduct" element={<CreateProductContainer />} />
+            <Route path="createNews" element={<CreateNewsContainer />} />
+            <Route path="/news"  >
+              <Route index element={<NewsDetailsContainer />} />
+              <Route path=":productId" element={<NewsDetailsContainer />} />
+            </Route>
+            <Route path="/orders">
+              <Route index element={<MyOrderListContainer />} />
+              <Route path=":productId" element={<OrderDetailsContainer />} />
+            </Route>
+            <Route path="/updateOrder/:productId" element={<UpdateOrderContainer/>} />
+            <Route path="/updateNews/:productId" element={<UpdateNewsContainer />} />
+            <Route path="/updateProduct">
+              <Route path=":productId" element={<UpdateProductContainer />} />
+            </Route>
+            <Route path="cart" element={<CartContainer />} />
+            <Route path="/products">
+              <Route index element={<ProductsContainer />} />
+              <Route path=":productId" element={<ProductDetailsContainerWithRoute />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <CustomFooter />
+      </Container>
+    </AuthProvider>
+    </Provider>
 
   );
 }

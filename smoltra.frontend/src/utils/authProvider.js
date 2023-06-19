@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { storeUser } from '../actions/authActions'
+import { getUser } from '../redux/reducers/auth-reducer';
 import { setAuthHeader } from './axiosHeaders';
 
 export default function AuthProvider({ userManager: manager, store, children }) {
@@ -11,7 +11,7 @@ export default function AuthProvider({ userManager: manager, store, children }) 
 
     const onUserLoaded = (user) => {
       console.log(`user loaded: ${user}`)
-      store.dispatch(storeUser(user))
+      store.dispatch(getUser(user))
     }
 
     const onUserUnloaded = () => {

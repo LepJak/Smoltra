@@ -32,13 +32,16 @@ const CustomNavbar = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link href="/">Главная</Nav.Link>
-                <Nav.Link href="/products">Каталог</Nav.Link>                               
+                <Nav.Link href="/products">Каталог</Nav.Link>          
+                <Nav.Link href="/news">Новости</Nav.Link>        
+                <Nav.Link href="/aboutUS">О нас</Nav.Link>         
+                <Nav.Link href="/contacts">Контакты</Nav.Link>                    
               </Nav>   
               <Nav className="justify-content-end flex-grow-1 pe-3">              
                 <Nav.Link href="/cart"><img class="rounded-circle" style={{height:'25px'}}src={cartImage}/></Nav.Link>
                 <Nav.Link href="/cart">Войти</Nav.Link>
                 <Nav.Link href="/cart">Регистрация</Nav.Link>
-                
+                <Nav.Link href="/orders">Мои заказы</Nav.Link>
               </Nav>      
             </Offcanvas.Body>
           </Navbar.Offcanvas>
