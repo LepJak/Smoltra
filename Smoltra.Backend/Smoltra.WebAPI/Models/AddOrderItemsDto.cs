@@ -8,7 +8,7 @@ namespace Smoltra.WebAPI.Models
 {
     public class AddOrderItemsDto : IMapFrom<AddOrderItemsCommand>
     {
-        public List<OrderItemForAddingDto> OrderItems { get; set; }
+        public List<OrderItemDto> OrderItems { get; set; }
             = new();
         public void Mapping(Profile profile)
         {
@@ -21,7 +21,8 @@ namespace Smoltra.WebAPI.Models
         public Guid CartItemId { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<OrderItemDto, OrderItemForAddingDto>();
+            profile.CreateMap<OrderItemDto, OrderItemForAddingDto>()
+                .ForMember(p => p.CartId, opt => opt.MapFrom(p => p.CartItemId));
         }
     }
 }

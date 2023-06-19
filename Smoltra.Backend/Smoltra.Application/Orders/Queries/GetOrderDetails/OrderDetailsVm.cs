@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
 using Smoltra.Application.Common.Mappings;
-using Smoltra.Application.Orders.Queries.GetListOrderByUserId;
 using Smoltra.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Smoltra.Application.Orders.Queries.GetOrderDetails
 {
@@ -15,15 +10,17 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
         public Guid OrderId { get; set; }
         public int State { get; set; }
         public DateTime Created { get; set; }
-        public decimal TotalCount { get
+        public decimal TotalPrice
+        {
+            get
             {
-                return OrdersItems.Sum(x => x.Count * x.TotalPrice);
+                return OrderItems.Sum(x => x.Count * x.TotalPrice);
             }
         }
-        public List<OrderItemDto> OrdersItems { get; set; }
+        public List<OrderProductItemDto> OrderItems { get; set; }
             = new();
     }
-    public class OrderItemDto : IMapFrom<OrderItemDto>
+    public class OrderProductItemDto : IMapFrom<OrderItem>
     {
         public Guid OrderItemId { get; set; }
         public Guid ProductId { get; set; }
@@ -34,11 +31,11 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
         public decimal TotalPrice { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<OrderItem, OrderItemDto>()
+            profile.CreateMap<OrderItem, OrderProductItemDto>()
                 .ForMember(p => p.NameProduct, opt => opt
                 .MapFrom(p => p.Product != null ? p.Product.Name : null))
                 .ForMember(p => p.ImageId, opt => opt
-                .MapFrom(p =>  p.Product.GeneralImageForProduct.Id))
+                .MapFrom(p => p.Product.GeneralImageForProduct.ImageId))
                 .ForMember(p => p.OrderItemId, opt => opt.MapFrom(p => p.Id))
                 .ForMember(p => p.Count, opt => opt.MapFrom(p => p.Count))
                 .ForMember(p => p.PriceForOne, opt => opt.MapFrom(p => p.PriceForUnit))

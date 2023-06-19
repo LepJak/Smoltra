@@ -19,6 +19,10 @@ import UpdateProductContainer from './components/administration/Products/UpdateP
 import CreateNewsContainer from './components/administration/Products/News/CreateNews/CreateNewsContainer';
 import NewsListContainer from './components/NewsList/NewsListContainer';
 import NewsDetailsContainer from './components/NewsDetail/NewsDetailsContainer';
+import MyOrderListContainer from './components/Orders/MyOrderList/MyOrderListContainer';
+import OrderDetailsContainer from './components/Orders/OrderDetails/OrderDetailsContainer';
+import UpdateOrderContainer from './components/administration/Products/UpdateOrder/UpdateOrderContainer';
+import Protected from './utils/protectedRoute'
 
 
 function App() {
@@ -37,6 +41,11 @@ function App() {
             <Route index element={<NewsDetailsContainer />} />
             <Route path=":productId" element={<NewsDetailsContainer />} />
           </Route>
+          <Route path="/orders">
+            <Route index element={<MyOrderListContainer />} />
+            <Route path=":productId" element={<OrderDetailsContainer />} />
+          </Route>
+          <Route path="/updateOrder/:productId"  element={<Protected component={UpdateOrderContainer} />} />
           <Route path="/updateNews/:productId" element={<UpdateNewsContainer />} />
           <Route path="/updateProduct">
             <Route path=":productId" element={<UpdateProductContainer />} />

@@ -28,17 +28,18 @@ export const cartReducer = (state = initialState, action) => {
             }
         }
         case REMOVE_PRODUCT_FROM_CART: {
+            console.log("ac")
             let i = 0;
             let arr = [...state.items];
             while (i < arr.length) {
                 if (arr[i].cartItemId === action.id) {
-                  arr.splice(i, 1);
-                  break;
+                    arr.splice(i, 1);
+                    break;
                 } else {
-                  ++i;
+                    ++i;
                 }
-              }
-              console.log(arr);
+            }
+            console.log(arr);
             return {
                 ...state,
                 items: arr
@@ -51,12 +52,12 @@ export const cartReducer = (state = initialState, action) => {
             }
         }
         case CHANGE_COUNT: {
-            var  item = state.items.find(x => x === action.item);
+            var item = state.items.find(x => x === action.item);
             item.count = action.count;
             let arr = [...state.items];
             return {
                 ...state,
-                items:arr
+                items: arr
             }
         }
         default:
@@ -64,7 +65,7 @@ export const cartReducer = (state = initialState, action) => {
     }
 }
 
-const changeCount = (item, count) =>({ type: CHANGE_COUNT, item, count })
+const changeCount = (item, count) => ({ type: CHANGE_COUNT, item, count })
 const setProductInCart = (product) => ({ type: ADD_PRODUCT_GUID_IN_CART, product })
 const setProductsInCart = (products) => ({ type: SET_PRODUCTS_IN_CART, products })
 const setProductsGuidFromCart = (productsGuidsFromCart) => ({ type: SET_PRODUCTS_GUIDS_FROM_CART, productsGuidsFromCart })
@@ -79,12 +80,12 @@ export const addProductsInCart = (id) => {
     }
 }
 
-export const changeCountInCart = (item,count) =>{
+export const changeCountInCart = (item, count) => {
     return (dispatch) => {
         console.log(count)
         cartApi.updateCartItem(item.cartItemId, count)
             .then(data => {
-                dispatch(changeCount(item,count));
+                dispatch(changeCount(item, count));
             });
     }
 }
@@ -117,13 +118,11 @@ export const getProductsGuidsFromCart = () => {
     }
 }
 export const cretateOrder = (items) => {
-    console.log(items);
-    let guids = items.map(x => x.cartItemId)
-    console.log(guids);
+    let guids = items.map(x => ({cartItemId: x.cartItemId}))
     return (dispatch) => {
-        let data = orderApi.createOrder({orderItems:guids})
+        orderApi.createOrder({ orderItems: guids })
             .then(data => {
-                guids.forEach(x => dispatch(removeProductFromCart(x)))             
+                guids.forEach(x => dispatch(removeProductFromCart(x.cartItemId)))
             });
     }
 }

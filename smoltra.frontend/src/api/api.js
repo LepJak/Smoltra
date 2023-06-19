@@ -146,8 +146,27 @@ export const newsApi = {
     }
 }
 export const orderApi = {
-    createOrder(order) {
-        return instance.post(`order`,{order})
+    createOrder(orderItems) {
+        console.log(orderItems);
+        return instance.post(`order`,orderItems)
+            .then(response => {
+                return response.data;
+            })
+    },
+    getOrders() {
+        return instance.get(`order`)
+            .then(response => {
+                return response.data;
+            })
+    },
+    getOrder(id) {
+        return instance.get(`order/${id}`)
+            .then(response => {
+                return response.data;
+            })
+    },
+    updateOrderState(body) {
+        return instance.put(`order`,body)
             .then(response => {
                 return response.data;
             })

@@ -9,9 +9,9 @@ namespace Smoltra.Domain.Enums
     public enum OrderState
     {
         WaitingAccept = 1,
-        Accept = 2,
-        Completed = 3, 
-        InWork = 4,
-        WaitGetting = 5
+        WaitingPayment = 2,
+        Completed =5, 
+        InWork = 3,
+        WaitGetting = 4
     }
 }

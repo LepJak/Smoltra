@@ -31,14 +31,14 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
             if(order == null ) 
                 throw new NotFoundException(nameof(Order), request.OrderId);
 
-            var result = _mapper.Map<List<OrderItemDto>>(order.OrderItems);
+            var result = _mapper.Map<List<OrderProductItemDto>>(order.OrderItems);
 
             return new OrderDetailsVm
             {
                 State = (int) order.State, 
                 Created= order.Created,
                 OrderId = order.Id,
-                OrdersItems = result
+                OrderItems = result
             };
 
         }

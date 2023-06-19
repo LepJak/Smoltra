@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Smoltra.Application.Orders.AddOrderItems;
+using Smoltra.Application.Orders.ChangeOrderState;
 using Smoltra.Application.Orders.Queries.GetListOrderByUserId;
 using Smoltra.Application.Orders.Queries.GetOrderDetails;
 using Smoltra.WebAPI.Models;
@@ -41,6 +42,17 @@ namespace Smoltra.WebAPI.Controllers
                 OrderId = id
             });
             return result;
+        }
+        [HttpPut]
+        public async Task<ActionResult> Update(UpdateOrderStateDto updateOrderStateDto)
+        {
+            await Mediator.Send(new ChangeOrderStateCommand
+            {
+                UserId = UserId,
+                OrderId = updateOrderStateDto.OrderId,
+                NewState = updateOrderStateDto.State
+            });
+            return NoContent();
         }
     }
 }

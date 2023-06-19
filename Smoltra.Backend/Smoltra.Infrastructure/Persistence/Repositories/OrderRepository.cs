@@ -18,6 +18,7 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
             return await _context.Orders
                 .Include(x => x.OrderItems)
                 .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.GeneralImageForProduct)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task<List<Order>> 

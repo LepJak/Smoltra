@@ -14,7 +14,7 @@ namespace Smoltra.Infrastructure.Persistence
         public static IServiceCollection 
             AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Work");
+            var connectionString = configuration.GetConnectionString("Home");
 
             services.AddDbContext<SmoltraDbContext>(options =>
             {

@@ -3,15 +3,20 @@ import { orderApi } from "../../api/api";
 const SET_ORDERS = "SET_ORDERS";
 
 let initialState = {
-    orders: [],
+    myOrdersPage: {
+        orders: []
+    }
+
 };
 
-export const cartReducer = (state = initialState, action) => {
+export const myOrderListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_ORDERS: {
             return {
                 ...state,
-                productsGuidFromCart: [...action.orders]
+                myOrdersPage: {
+                    orders: [...action.orders]
+                }
             }
         }
         default:
@@ -21,7 +26,7 @@ export const cartReducer = (state = initialState, action) => {
 
 const setOrders = (orders) => ({ type: SET_ORDERS, orders })
 
-export const getProductsInCart = () => {
+export const getOrders = () => {
     return (dispatch) => {
         orderApi.getOrders()
             .then(data => {

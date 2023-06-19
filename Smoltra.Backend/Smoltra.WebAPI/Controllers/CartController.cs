@@ -42,6 +42,7 @@ namespace Smoltra.WebAPI.Controllers
                 .Send(new DeleteCartItemCommand { CartItemId = id, UserId = UserId });
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<CartItemListVm> Get()
         {

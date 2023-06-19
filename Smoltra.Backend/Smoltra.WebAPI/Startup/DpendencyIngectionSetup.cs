@@ -15,7 +15,15 @@ namespace Smoltra.WebAPI.Startup
             RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
+            });
             services.AddEndpointsApiExplorer();
             services.AddAutoMapper(config =>
             {
@@ -32,19 +40,13 @@ namespace Smoltra.WebAPI.Startup
                     JwtBearerDefaults.AuthenticationScheme;
                 config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                            .AddJwtBearer("Bearer", options =>
-                            {
-                                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                                {
-                                    ValidateIssuer = true,
-                                    ValidateAudience = true,
-                                    ValidAudience = "authServer",
-                                    ValidIssuer = "clientServer",
-                                    RequireExpirationTime = true,
-                                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("This is the key that we will use in the encryption")),
-                                    ValidateIssuerSigningKey = true
-                                };
-                            });
+                 .AddJwtBearer("Bearer", options =>
+                 {
+                     options.Authority = "https://localhost:44386/";
+                     options.Audience = "SmoltraBackend";
+                     options.RequireHttpsMetadata = false;
+                 });
+            services.AddHttpContextAccessor();
             return services;
         }
     }

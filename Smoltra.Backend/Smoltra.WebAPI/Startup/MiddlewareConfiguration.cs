@@ -7,9 +7,7 @@ namespace Smoltra.WebAPI.Startup
     {
         public static WebApplication MiddlewareConfigure(this WebApplication app)
         {
-            app.UseCors(builder => builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader());
+            app.UseCors("AllowAll");
             app.ConfigureSwagger();
             app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
