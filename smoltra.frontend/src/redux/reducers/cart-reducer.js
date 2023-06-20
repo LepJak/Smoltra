@@ -14,7 +14,6 @@ let initialState = {
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PRODUCT_GUID_IN_CART: {
-            debugger;
             console.log("!");
             return {
                 ...state,

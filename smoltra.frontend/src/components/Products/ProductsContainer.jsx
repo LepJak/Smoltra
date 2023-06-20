@@ -24,6 +24,7 @@ class ProductsContainer extends React.Component{
 const mapStateToProps = (state) => {
     return {
         productsPage: state.productsReducer.productsPage,
+        
         productsGuidFromCart : state.cartReducer.productsGuidFromCart
     }
 }

@@ -44,10 +44,12 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
 
             foreach (var image in request.NewImages)
             {
-                var imageId = await _imageRepository.AddAsync(new Image { ProductId = product.Id}, cancellationToken);
-                var efImage = await _imageRepository.GetByIdAsync(imageId, cancellationToken);
-                product?.Images?.Add(efImage);
-                _fileService.SaveProductImage(imageId, image);
+                var dbImage = new Image();
+                var guid = await _imageRepository.AddAsync(dbImage, cancellationToken);
+             
+                //var efImage = await _imageRepository.GetByIdAsync(imageId, cancellationToken);
+                product?.Images?.Add(dbImage);
+                _fileService.SaveProductImage(guid, image);
                 
             }
 

@@ -5,6 +5,13 @@ const instance = axios.create({
     baseURL: "https://localhost:7175/api",
 });
 
+const setJwt =() =>{
+    console.log("setJwt")
+    const token = localStorage.getItem('token');
+    console.log(token)
+    instance.defaults.headers.common = token ? {Authorization : 'Bearer ' + token }: ''
+}
+
 export const productApi = {
     getProducts(numberPage = 1, countItems = 20) {
         return instance.get(`product?numberPage=${numberPage}&countItems=${countItems}`)
@@ -19,6 +26,7 @@ export const productApi = {
             })
     },
     createProduct(product) {
+        setJwt();
         const formData = new FormData();
         console.log("createProduct");
         console.log(product.images)
@@ -38,6 +46,7 @@ export const productApi = {
     },
     updateProduct(product) {
         console.log(product);
+        setJwt();
         const formData = new FormData();
         console.log("updateProduct");
         formData.append('productId', product.id);
@@ -68,6 +77,8 @@ export const productApi = {
 }
 export const cartApi = {
     getCartItems() {
+        setJwt();
+        console.log(instance.defaults.headers)
         return instance.get(`cart`)
             .then(response => {
                 console.log(response);
@@ -75,24 +86,28 @@ export const cartApi = {
             })
     },
     updateCartItem(id, count) {
+        setJwt();
         return instance.put(`cart`, {cartItemId: id, count: count})
             .then(response => {
                 return response.data;
             })
     },
     getProductsGuidsFromCart() {
+        setJwt();
         return instance.get(`cart/getProductsGuid`)
             .then(response => {
                 return response.data;
             })
     },
     removeProductFromCart(productId) {
+        setJwt();
         return instance.delete(`cart/${productId}`,)
             .then(response => {
                 return response.data;
             })
     },
     addProductInCart(id) {
+        setJwt();
         console.log("api");
         return instance.post(`cart`, { productId: id, count: 1 })
             .then(response => {
@@ -117,12 +132,14 @@ export const newsApi = {
             })
     },
     deleteNews(id) {
+        setJwt();
         return instance.delete(`news/${id}`,)
             .then(response => {
                 return response.data;
             })
     },
     createNews(news) {
+        setJwt();
         console.log("api");
         console.log(news);
         return instance.post(`news`, news)
@@ -134,6 +151,7 @@ export const newsApi = {
             })
     },
     updateNews(news) {
+        setJwt();
         console.log("api");
         console.log(news);
         return instance.put(`news`, news)
@@ -147,6 +165,7 @@ export const newsApi = {
 }
 export const orderApi = {
     createOrder(orderItems) {
+        setJwt();
         console.log(orderItems);
         return instance.post(`order`,orderItems)
             .then(response => {
@@ -154,18 +173,21 @@ export const orderApi = {
             })
     },
     getOrders() {
+        setJwt();
         return instance.get(`order`)
             .then(response => {
                 return response.data;
             })
     },
     getOrder(id) {
+        setJwt();
         return instance.get(`order/${id}`)
             .then(response => {
                 return response.data;
             })
     },
     updateOrderState(body) {
+        setJwt();
         return instance.put(`order`,body)
             .then(response => {
                 return response.data;

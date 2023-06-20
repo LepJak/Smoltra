@@ -61,7 +61,7 @@ const Products = (props) => {
             return (<ProductCard product={p} selectCountModalHandle={handle} inCart={inCart} />)
 
         });
-
+        console.log(props.auth?.role)
     return (
         <Container>
             <Modal show={stateModal.showModal} size="lg"
@@ -95,6 +95,12 @@ const Products = (props) => {
                 </Modal.Footer>
             </Modal>
             <Row className="justify-content-center">
+                {
+                    
+                    props.auth?.role == "Admin" &&
+                    <Button>Добавить товар</Button>
+                }
+                
                 {products}
             </Row>
         </Container>

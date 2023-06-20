@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Smoltra.Application.NewsEvents.Commands.CreateNews;
 using Smoltra.Application.NewsEvents.Commands.DeleteNews;
@@ -41,11 +42,12 @@ namespace Smoltra.WebAPI.Controllers
             await Mediator.Send(new DeleteNewsCommand { NewsId = id });
             return NoContent();
         }
-
+       
         [HttpPost]
         public async Task<ActionResult<Guid>>
             Create([FromBody] CreateNewsDto createProductDto)
         {
+            var user = User?.Identity;
             var query = _mapper.Map<CreateNewsCommand>(createProductDto);
             var id = await Mediator.Send(query);
             return id;

@@ -49,12 +49,13 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
             bool defaultImage = true;
             foreach (var image in request.Images)
             {
-                
-                var imageId = await _imageRepository.AddAsync(new Image { ProductId = id }, cancellationToken);                 
-                _fileService.SaveProductImage(imageId, image);
+                var dbImage = new Image();
+                var guid = await _imageRepository.AddAsync(dbImage, cancellationToken);
+                product?.Images?.Add(dbImage);                 
+                _fileService.SaveProductImage(dbImage.Id, image);
                 if (defaultImage == true)
                 {
-                    product.GeneralImageForProduct = new GeneralImageForProduct { ImageId =  imageId };
+                    product.GeneralImageForProduct = new GeneralImageForProduct { ImageId = dbImage.Id };
                     defaultImage = false;
                 }
                 

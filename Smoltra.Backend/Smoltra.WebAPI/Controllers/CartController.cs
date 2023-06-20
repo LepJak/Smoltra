@@ -10,7 +10,7 @@ using Smoltra.WebAPI.Models;
 
 namespace Smoltra.WebAPI.Controllers
 {
-
+    [Authorize]
     public class CartController : BaseController
     {
         private readonly IMapper _mapper;
@@ -42,7 +42,6 @@ namespace Smoltra.WebAPI.Controllers
                 .Send(new DeleteCartItemCommand { CartItemId = id, UserId = UserId });
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<CartItemListVm> Get()
         {

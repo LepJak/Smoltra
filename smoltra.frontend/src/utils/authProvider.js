@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { getUser } from '../redux/reducers/auth-reducer';
 import { setAuthHeader } from './axiosHeaders';
+import { signinRedirect, signinRedirectCallback, signinSilent } from '../services/userService';
 
 export default function AuthProvider({ userManager: manager, store, children }) {
 
@@ -20,10 +21,12 @@ export default function AuthProvider({ userManager: manager, store, children }) 
     }
 
     const onAccessTokenExpiring = () => {
+      signinSilent()
       console.log(`user token expiring`)
     }
 
     const onAccessTokenExpired = () => {
+      //signinRedirectCallback()
       console.log(`user token expired`)
     }
 

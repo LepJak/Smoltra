@@ -15,22 +15,31 @@ const config = {
   scope: "openid profile SmoltraBackend",
   // URL to redirect to after logout
   post_logout_redirect_uri: "http://localhost:3000/signout-oidc",
+  accessTokenExpiringNotificationTime: 1000,
 };
 
 const userManager = new UserManager(config)
 
 export async function loadUser() {
+  if (window.location.href.includes('code')) { // without this if condition I am getting an error saying no state in response. not sure if there is a better way.
+    userManager.signinRedirectCallback();
+  }
   const user = await userManager.getUser();
   console.log('User: ', user);
   const token = user?.access_token;
- // setAuthHeader(token);
+  // setAuthHeader(token);
 }
 
 export async function loadUserFromStorage(store) {
   try {
+    if (window.location.href.includes('code')) { // without this if condition I am getting an error saying no state in response. not sure if there is a better way.
+      userManager.signinRedirectCallback();
+    }
+    console.log(`loadUser`)
     const user = await userManager.getUser();
+    console.log(user)
     if (!user) { return store.dispatch(storeUserError()) }
-      store.dispatch(getUser(user))
+    store.dispatch(getUser(user))
   } catch (e) {
     console.error(`User not found: ${e}`)
     store.dispatch(storeUserError())
@@ -39,6 +48,9 @@ export async function loadUserFromStorage(store) {
 
 export function signinRedirect() {
   return userManager.signinRedirect()
+}
+export function signinSilent() {
+  return userManager.signinSilent()
 }
 
 export function signinRedirectCallback() {

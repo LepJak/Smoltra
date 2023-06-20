@@ -1,5 +1,6 @@
 import axios from 'axios'
 
 export function setAuthHeader(token) {
-  axios.defaults.headers.common['Authorization'] = token ? 'Bearer ' + token : ''
+  localStorage.setItem('token', token ? token : '');
+  console.log("set")
 }

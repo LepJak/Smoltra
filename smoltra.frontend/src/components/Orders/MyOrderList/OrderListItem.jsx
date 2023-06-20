@@ -10,7 +10,7 @@ const OrderListItem = (props) => {
     const state = orderStateHelper.getState(props.order.state);
     console.log(props?.order?.dateCreated);
     return (<>
-        <a style={{textDecoration:"none", color:"black"}} href="#">
+        <a style={{textDecoration:"none", color:"black"}} href={`orders/${props?.order?.id}`}>
             <Card style={{ margin: "5px", minHeight: "150px", maxHeight: "200px" , borderWidth:"3px", borderColor:state.colorHex}}>
                 <Card.Body>
                     <Card.Title style={{ fontSize: "25px" }}>Заказ № {props?.order?.id}</Card.Title>

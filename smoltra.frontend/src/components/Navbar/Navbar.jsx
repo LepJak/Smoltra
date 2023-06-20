@@ -10,12 +10,21 @@ import "../../App.css";
 import "../../fonts/Lack-Regular.otf"
 import ".//style.css";
 import cartImage from "../../images/cart.png"
+import SignoutOidc from '../../auth/SignoutOidc';
+import { signinRedirect, signoutRedirect } from '../../services/userService';
 
-const CustomNavbar = () => {
+const CustomNavbar = (props) => {
   const expand = "lg";
+  console.log(props?.auth?.user?.id_token)
+  const signOut = () => {
+    signoutRedirect({ 'id_token_hint': props?.auth?.user?.id_token })
+  }
+  const signIn = () => {
+    signinRedirect()
+  }
   return (
-    <>  
-      <Navbar style={{backgroundColor:'white'}} key={expand} bg="none" expand={expand} className="mb-3">
+    <>
+      <Navbar style={{ backgroundColor: 'white' }} key={expand} bg="none" expand={expand} className="mb-3">
         <Container fluid>
           <Navbar.Brand href="#home" className='fw-bold' style={{ fontSize: '2.9rem', fontFamily: "ffl" }}>Смолтра</Navbar.Brand>
           <Navbar.Toggle style={{ width: '90px' }} aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -32,17 +41,30 @@ const CustomNavbar = () => {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link href="/">Главная</Nav.Link>
-                <Nav.Link href="/products">Каталог</Nav.Link>          
-                <Nav.Link href="/news">Новости</Nav.Link>        
-                <Nav.Link href="/aboutUS">О нас</Nav.Link>         
-                <Nav.Link href="/contacts">Контакты</Nav.Link>                    
-              </Nav>   
-              <Nav className="justify-content-end flex-grow-1 pe-3">              
-                <Nav.Link href="/cart"><img class="rounded-circle" style={{height:'25px'}}src={cartImage}/></Nav.Link>
-                <Nav.Link href="/cart">Войти</Nav.Link>
-                <Nav.Link href="/cart">Регистрация</Nav.Link>
-                <Nav.Link href="/orders">Мои заказы</Nav.Link>
-              </Nav>      
+                <Nav.Link href="/products">Каталог</Nav.Link>
+                <Nav.Link href="/news">Новости</Nav.Link>
+                <Nav.Link href="/aboutUS">О нас</Nav.Link>
+                <Nav.Link href="/contacts">Контакты</Nav.Link>
+              </Nav>
+              <Nav className="justify-content-end flex-grow-1 pe-3">
+                {props.auth.user != null &&
+                  <Nav.Link href="/cart"><img class="rounded-circle" style={{ height: '25px' }} src={cartImage} /></Nav.Link>
+                }
+                {props.auth.user == null &&
+                  <Nav.Link onClick={signIn}>Войти</Nav.Link>
+                }
+               
+                {props.auth.user == null &&
+                  <Nav.Link href="/cart">Регистрация</Nav.Link>
+                }
+                {props.auth.user != null &&
+                  <Nav.Link href="/orders">Мои заказы</Nav.Link>
+                }
+                 {props.auth.user != null &&
+                  <Nav.Link onClick={signOut}>Выйти</Nav.Link>
+                }
+
+              </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
