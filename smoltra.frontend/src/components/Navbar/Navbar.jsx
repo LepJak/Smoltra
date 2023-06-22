@@ -12,8 +12,13 @@ import ".//style.css";
 import cartImage from "../../images/cart.png"
 import SignoutOidc from '../../auth/SignoutOidc';
 import { signinRedirect, signoutRedirect } from '../../services/userService';
+import { useSelector } from 'react-redux';
+
+
+
 
 const CustomNavbar = (props) => {
+  const auth = useSelector(state => state.authReducer?.auth);
   const expand = "lg";
   const signOut = () => {
     signoutRedirect({ 'id_token_hint': props?.auth?.user?.id_token })
@@ -46,20 +51,26 @@ const CustomNavbar = (props) => {
                 <Nav.Link href="/contacts">Контакты</Nav.Link>
               </Nav>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                {props.auth.user != null &&
+                {
+                  auth.role != "Admin" &&
+                  props.auth.user != null &&
                   <Nav.Link href="/cart"><img class="rounded-circle" style={{ height: '25px' }} src={cartImage} /></Nav.Link>
+
                 }
+
                 {props.auth.user == null &&
                   <Nav.Link onClick={signIn}>Войти</Nav.Link>
                 }
-               
+
                 {props.auth.user == null &&
-                  <Nav.Link href="/cart">Регистрация</Nav.Link>
+                  <Nav.Link href="/registration">Регистрация</Nav.Link>
                 }
-                {props.auth.user != null &&
+                {
+                auth.role != "Admin" &&
+                  props.auth.user != null &&
                   <Nav.Link href="/orders">Мои заказы</Nav.Link>
                 }
-                 {props.auth.user != null &&
+                {props.auth.user != null &&
                   <Nav.Link onClick={signOut}>Выйти</Nav.Link>
                 }
 
