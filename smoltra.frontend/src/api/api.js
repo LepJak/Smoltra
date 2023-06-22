@@ -6,9 +6,7 @@ const instance = axios.create({
 });
 
 const setJwt =() =>{
-    console.log("setJwt")
     const token = localStorage.getItem('token');
-    console.log(token)
     instance.defaults.headers.common = token ? {Authorization : 'Bearer ' + token }: ''
 }
 
@@ -21,6 +19,13 @@ export const productApi = {
     },
     getProductDetail(id) {
         return instance.get("url")
+            .then(response => {
+                return response.data;
+            })
+    },
+    removeProduct(productId) {
+        setJwt();
+        return instance.delete(`product/${productId}`,)
             .then(response => {
                 return response.data;
             })
@@ -55,10 +60,12 @@ export const productApi = {
         formData.append('description', product.description);
         formData.append('SpecificationGroups', JSON.stringify(product.specificationGroups));
 
+        debugger
         let newImages = product.images?.filter(x => x.id == null);
+
         for (let i = 0; i < newImages?.length; i++) {
-            if (product.images[i]?.file != null)
-                formData.append('newImages', product.images[i]?.file);
+            if (newImages[i]?.file != null)
+                formData.append('newImages', newImages[i]?.file);
         }
 
         for (let i = 0; i < product.deletedImages?.length; i++) {

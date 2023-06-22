@@ -21,7 +21,8 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
                     .Skip((multiplierSkip - 1) * countProducts)
                     .Take(countProducts)
                     .Include(p => p.Category)
-                    .Include(p => p.GeneralImageForProduct)              
+                    .Include(p => p.GeneralImageForProduct)   
+                    .Where(p => !p.IsDeleted)
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
             return products;

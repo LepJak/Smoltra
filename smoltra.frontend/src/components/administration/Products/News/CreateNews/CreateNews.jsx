@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -12,6 +12,11 @@ const CreateNews = (props) => {
     const state = props.createNewsPage
     let config = {
         language: "ru"
+    }
+    const navigate = useNavigate();
+    const createNews= () =>{
+        props.createNews(state?.newNews)
+        navigate("/news")
     }
 
     const changeField = (e) => {
@@ -57,9 +62,7 @@ const CreateNews = (props) => {
             }}
 
         />
-        <Button onClick={() => {
-            props.createNews(state?.newNews)
-        }}>
+        <Button onClick={createNews}>
             Создать новость
         </Button>
     </>)

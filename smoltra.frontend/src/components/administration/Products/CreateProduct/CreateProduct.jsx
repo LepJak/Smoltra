@@ -26,7 +26,7 @@ const CreateProduct = (props) => {
     const navigate = useNavigate();
     const createNewProduct =()=>{
         props.createProduct(productInfo, selectedImages,state.specificationGroups);
-        navigate("/");
+        navigate("/products");
     }
     const changeName = (e) =>{
         setProductInfo({

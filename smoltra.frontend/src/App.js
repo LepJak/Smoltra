@@ -33,6 +33,7 @@ import AboutUs from './components/AboutUs/AboutUs';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import SigninOidc from './auth/SigninOidc';
 import SignoutOidc from './auth/SignoutOidc';
+import MainPageContainer from './components/MainPage/MainPageContainer';
 
 function App() {
   //loadUser();
@@ -52,7 +53,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="aboutUs" element={<AboutUs />} />
               <Route path="registration" element={<Registration />} />
-              <Route path="*" element={<MainPage />} />
+              <Route path="*" element={<MainPageContainer />} />
               <Route path="createProduct" element={<CreateProductContainer />} />
               <Route path="createNews" element={<CreateNewsContainer />} />
               <Route path="/news"  >

@@ -37,7 +37,6 @@ export async function loadUserFromStorage(store) {
     }
     console.log(`loadUser`)
     const user = await userManager.getUser();
-    console.log(user)
     if (!user) { return store.dispatch(storeUserError()) }
     store.dispatch(getUser(user))
   } catch (e) {

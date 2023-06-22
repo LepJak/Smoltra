@@ -21,7 +21,6 @@ const UpdateProduct = (props) => {
     const navigate = useNavigate();
     const updateProduct =()=>{
         props.updateProduct(state.product);
-        navigate(`/products/${state.product.id}`);
     }
     const changeField = (e) =>{
         props.changeProductProp(e.target.id, e.currentTarget.value)
@@ -129,7 +128,7 @@ const UpdateProduct = (props) => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <Button variant="success" onClick={updateProduct} style={{ width: "100%", margin: "10px 0 10px 0" }} >Добавить товар</Button>
+            <Button variant="success" onClick={updateProduct} style={{ width: "100%", margin: "10px 0 10px 0" }} >Обновить товар</Button>
             <input
                 id="image-uploader"
                 type="file"

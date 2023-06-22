@@ -17,6 +17,7 @@ namespace Smoltra.Domain.Entities
         public GeneralImageForProduct? GeneralImageForProduct { get; set; }
         public Guid? GeneralImageForProductId { get; set; }
         public ICollection<Image>? Images { get; set; }
+        public bool IsDeleted { get; set; }
         public List<ProductSpecificationGroup> SpecificationGroups { get; set; }
             = new List<ProductSpecificationGroup>();
     }

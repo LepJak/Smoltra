@@ -15,7 +15,6 @@ import { signinRedirect, signoutRedirect } from '../../services/userService';
 
 const CustomNavbar = (props) => {
   const expand = "lg";
-  console.log(props?.auth?.user?.id_token)
   const signOut = () => {
     signoutRedirect({ 'id_token_hint': props?.auth?.user?.id_token })
   }

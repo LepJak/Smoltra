@@ -71,7 +71,7 @@ export const updateNews = (news) => (dispatch) => {
     }
     newsApi.updateNews(newNews)
         .then(data => {
-            
+            dispatch(getNews())
         });
 }
 export const deleteNews = (id) => (dispatch) => {

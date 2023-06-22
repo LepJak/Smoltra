@@ -11,7 +11,7 @@ import 'react-multi-carousel/lib/styles.css';
 import nextImage from "../../images/next.png";
 import ".//style.css";
 
-const MainPage = () => {
+const MainPage = (props) => {
     const responsive = {
         superLargeDesktop: {
             // the naming can be any, depends on you.
@@ -35,100 +35,38 @@ const MainPage = () => {
             items: 1
         }
     };
+    const state = props.mainPage;
+    let lastNews = state.news?.map(x => (<Carousel.Item style={{ height: '100%' }} >
+        <Card className="bg-dark text-white" style={{ height: '100%' }} >
+            <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
+            <Card.ImgOverlay style={{ height: '100%', width: '100%' }}>
+                <Card.Title style={{ padding: '0 90px 0 90px ' }}>{x.title}</Card.Title>
+                <Card.Text style={{ padding: '0 60px 0 60px' }}>
+                    {x.annotation}
+                </Card.Text>
+            </Card.ImgOverlay>
+        </Card>
+    </Carousel.Item>))
+
+    const topSales = state?.topSelers?.map(x => <ProductCard product={x} />) ?? []
+    console.log(state);
     return (<>
         {/* <div style={{display: 'flex', marginTop:'auto', marginBottom:'auto' ,height:'auto',alignItems: 'center', justifyContent: 'center'}}>
 
     </div> */}
-        <div style={{border: '1px solid black', borderRadius:'5px', backgroundColor:'#d6dbdf36', margin:'0 0 20px 0'}}>
+        <div style={{ border: '1px solid black', borderRadius: '5px', backgroundColor: '#d6dbdf36', margin: '0 0 20px 0' }}>
             <h2 style={{ margin: '20px' }}>Новости</h2>
             <Carousel controls={true} style={{ height: '20rem', margin: '20px' }}>
-                <Carousel.Item style={{ height: '100%' }} >
-                    <Card className="bg-dark text-white" style={{ height: '100%' }} >
-                        <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
-                        <Card.ImgOverlay style={{ height: '100%', width: '100%' }}>
-                            <Card.Title style={{ padding: '20px' }}>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                            </Card.Text>
-                            <Card.Text>Last updated 3 mins ago</Card.Text>
-                        </Card.ImgOverlay>
-                    </Card>
-                </Carousel.Item>
-                <Carousel.Item style={{ borderRadius: "5px" }}>
-                    <Card style={{ borderRadius: "5px" }} className="bg-dark text-white">
-                        <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
-                        <Card.ImgOverlay style={{ height: '100%' }}>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                            </Card.Text>
-                            <Card.Text>Last updated 3 mins ago</Card.Text>
-                        </Card.ImgOverlay>
-                    </Card>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <Card style={{ borderRadius: "5px" }} className="bg-dark text-white">
-                        <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
-                        <Card.ImgOverlay>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text style={{ height: "10rem", textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                                This is a wider card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.
-                            </Card.Text>
-                            <Card.Text>Last updated 3 mins ago</Card.Text>
-                        </Card.ImgOverlay>
-                    </Card>
-                </Carousel.Item>
+               {lastNews}
             </Carousel>
         </div>
-        <div style={{border: '1px solid black', borderRadius:'5px', backgroundColor:'#d6dbdf36',margin:'0 0 20px 0'}}>
+        <div style={{ border: '1px solid black', borderRadius: '5px', backgroundColor: '#d6dbdf36', margin: '0 0 20px 0' }}>
             <h2 style={{ margin: '20px' }}>Лидеры продаж</h2>
             <div>
             </div>
 
             <CarouselBeta responsive={responsive} renderButtonGroupOutside={false} >
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-            </CarouselBeta>
-        </div>
-        <div style={{border: '1px solid black', borderRadius:'5px', backgroundColor:'#d6dbdf36'}}>
-            <h2 style={{ margin: '20px' }}>Реокмендуем</h2>
-            <div>
-            </div>
-
-            <CarouselBeta responsive={responsive} renderButtonGroupOutside={false} >
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                {topSales}
             </CarouselBeta>
         </div>
 

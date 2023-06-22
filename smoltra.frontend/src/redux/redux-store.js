@@ -13,6 +13,7 @@ import { myOrderListReducer } from "./reducers/myOrderList-reducer";
 import { orderDetailsReducer } from "./reducers/orderDetails-reducer";
 import { orderUpdateReducer } from "./reducers/updateOrder-reducer";
 import { authReducer } from "./reducers/auth-reducer";
+import { mainPageReducer } from "./reducers/mainPage-reducer";
 
 let reducers = combineReducers(
     {
@@ -28,7 +29,8 @@ let reducers = combineReducers(
         myOrderListReducer : myOrderListReducer,
         orderDetailsReducer : orderDetailsReducer,
         orderUpdateReducer : orderUpdateReducer, 
-        authReducer : authReducer
+        authReducer : authReducer,
+        mainPageReducer : mainPageReducer
     }
 );
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

@@ -9,10 +9,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import emptyImage from "../../images/empty_photo.jpg";
 import wastebasket from "../../images/wastebasket.png";
+import { useSelector } from 'react-redux';
+
+
 
 const Products = (props) => {
 
-
+    const auth = useSelector(state => state.authReducer?.auth);
+    console.log(auth.role);
     const getImageUrl = (uid) => {
         let imageUrl = `https://localhost:7175/api/image/${uid}`;
         return imageUrl;
@@ -58,10 +62,9 @@ const Products = (props) => {
             //console.log(inCart);
             //console.log(`${p.id}`);
             //console.log(props.productsGuidFromCart);
-            return (<ProductCard product={p} selectCountModalHandle={handle} inCart={inCart} />)
+            return (<ProductCard product={p} selectCountModalHandle={handle} deleteProduct={props.deleteProduct} inCart={inCart} isAdmin={auth?.role == "Admin"}/>)
 
-        });
-        console.log(props.auth?.role)
+        });       
     return (
         <Container>
             <Modal show={stateModal.showModal} size="lg"
@@ -91,14 +94,14 @@ const Products = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Продолжить покупки</Button>
-                    <a href='https://sa.ru'><Button variant="primary">В корзину</Button></a>
+                    <a href='/cart'><Button variant="primary">В корзину</Button></a>
                 </Modal.Footer>
             </Modal>
             <Row className="justify-content-center">
                 {
                     
-                    props.auth?.role == "Admin" &&
-                    <Button>Добавить товар</Button>
+                    auth?.role == "Admin" &&
+                    <a href='/createProduct' style={{margin:"10px", height:"60px"}}><Button style={{ height:"60px", width:"100%"}}>Добавить товар</Button></a>
                 }
                 
                 {products}

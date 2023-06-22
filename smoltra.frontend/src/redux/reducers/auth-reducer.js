@@ -20,18 +20,18 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 auth:{
+                    ...state.auth,
                     user: action.user
                 }
             }
         }
         case SET_ROLE: {
+            console.log("setRole "+ action.role)
             return {
                 ...state,
                 auth:{
-                    user:{
-                        ...state.auth.user,
-                        role: action.role
-                    } 
+                    ...state.auth,
+                    role: action.role 
                 }
             }
         }
@@ -58,6 +58,7 @@ export const userSignedOut = () => ({ type: USER_SIGNED_OUT})
 
 export const getUser = (user) =>(dispatch) =>{
     setAuthHeader(user.access_token)
- 
+    let role = parseJwt(user.access_token)?.role;
+    dispatch(setRole(role));
     dispatch(setUser(user));
 }

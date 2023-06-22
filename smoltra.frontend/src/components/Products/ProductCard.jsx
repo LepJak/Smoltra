@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { NavLink } from 'react-router-dom';
 
+
 const handleImageError = e => { e.target.src = emptyImage };
 
 const ProductCard = (props) => {
@@ -13,8 +14,11 @@ const ProductCard = (props) => {
 
     var width = props.width ?? '200px';
 
+    console.log(props?.product)
+    const deleteProduct = () =>{
+        props.deleteProduct(props.product)
+    }
     const [stateInCart, setState] = useState(props.inCart);
-
     let throwState = () =>{
         console.log("1");
         setState(true);
@@ -34,9 +38,14 @@ const ProductCard = (props) => {
                 </Card.Text>
                 <div className="text-end mt-4"  style={{ position: 'absolute', height:'auto', width: '100%', top: 'auto', left: '0', bottom: '0', right: '0', margin:'auto'}} >
                     {
-                        !(props.inCart) ?
+                        props.isAdmin ?
+                        (<div><Button href={`/updateProduct/${props?.product?.id}`} style={{width: '50%', height:'40px', borderRadius:'3px'}}>Обновить</Button>
+                        <Button variant='danger' onClick={deleteProduct} style={{width: '50%', height:'40px', borderRadius:'3px'}}>Удалить</Button>
+                        </div>) 
+                        :
+                        (!(props.inCart) ?
                         (<Button variant="primary" style={{width: '100%', height:'40px', borderRadius:'3px'}} onClick={throwState}>Купить</Button>) 
-                        : (<Button variant="primary" style={{width: '100%', height:'40px', borderRadius:'3px'}}>В корзине</Button>)
+                        : (<Button href='/cart' variant="primary" style={{width: '100%', height:'40px', borderRadius:'3px'}}>В корзине</Button>))
                     }
                     
                 </div>

@@ -32,6 +32,7 @@ namespace Smoltra.WebAPI.Controllers
             return Ok(products);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult>
             Delete(Guid id)
@@ -40,6 +41,7 @@ namespace Smoltra.WebAPI.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Guid>>
             Create([FromForm] CreateProductDto createProductDto)
@@ -49,6 +51,7 @@ namespace Smoltra.WebAPI.Controllers
             return id;
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<ActionResult>
             Update([FromForm] UpdateProductDto updateProductDto)

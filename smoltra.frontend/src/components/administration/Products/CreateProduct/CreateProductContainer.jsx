@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import CreateProduct from "./CreateProduct";
 import { createSpecificationGroup, createSpecification, changeNameSpecificationGroup, changeSpecificationValue } from "../../../../redux/reducers/createProduct-reducer";
 import { productApi } from "../../../../api/api";
+import { setProducts } from "../../../../redux/reducers/products-reduser";
 
 const createProduct = (productInfo, images, specifications) => {
     return (dispatch) => {
@@ -15,7 +16,8 @@ const createProduct = (productInfo, images, specifications) => {
         }
         productApi.createProduct(product)
         .then(data=>{
-            dispatch();
+            let products = productApi.getProducts()
+            dispatch(setProducts(products));
         });
 
     }

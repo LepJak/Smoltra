@@ -1,6 +1,6 @@
 import Products from "./Products";
 import {connect} from "react-redux";
-import { setProducts } from "../../redux/reducers/products-reduser";
+import { deleteProduct, setProducts } from "../../redux/reducers/products-reduser";
 import { productApi } from '../../api/api';
 import React from "react";
 import { getProductsGuidsFromCart } from "../../redux/reducers/cart-reducer";
@@ -15,7 +15,6 @@ class ProductsContainer extends React.Component{
    }
   
    render(){
-    console.log("render")
     return(<Products {...this.props} productsPage={this.props.productsPage} addProductInCart={this.props.addProductsInCart}/>);
    }
 }
@@ -39,6 +38,9 @@ const mapDispatchToProps = (dispatch) => {
         addProductsInCart: (id) => {
             dispatch(addProductsInCart(id) )
         } ,
+        deleteProduct : (product) => {
+            dispatch(deleteProduct(product))
+        }
     } 
 }
 

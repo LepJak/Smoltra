@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Smoltra.Application;
 using Smoltra.Application.Common.Interfaces;
@@ -33,7 +34,7 @@ namespace Smoltra.WebAPI.Startup
             services.AddApplication();
             services.AddPersistence(configuration);
             services.AddSwaggerGen();
-
+            IdentityModelEventSource.ShowPII = true; //Add this line
             services.AddAuthentication(config =>
             {
                 config.DefaultAuthenticateScheme =

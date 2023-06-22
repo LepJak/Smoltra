@@ -1,5 +1,5 @@
 import { newsApi } from "../../api/api";
-
+import {getNews} from "../reducers/newsList-reducer"
 //action types
 const CHANGE_VALUE_FIELD = "CHANGE_VALUE_FIELD";
 
@@ -44,6 +44,7 @@ export const createNews = (news) => {
     return (dispatch) => {
         let data = newsApi.createNews(news)
             .then(data => {
+                dispatch(getNews())
             });
     }
 }

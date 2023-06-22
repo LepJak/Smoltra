@@ -18,7 +18,8 @@ namespace Smoltra.Application.Products.Commands.DeleteProduct
                 cancellationToken);
             if (product == null)
                 throw new NotFoundException(nameof(Product), request.ProductId);
-            _productRepository.Remove(product);
+            //_productRepository.Remove(product);
+            product.IsDeleted = true;
             
             await _productRepository.SaveChangesAsync(cancellationToken);
             return Unit.Value;
