@@ -28,7 +28,7 @@ namespace Smoltra.Application.Orders.ChangeOrderState
             CancellationToken cancellationToken)
         {
             var order = await _orderRepository.GetByIdAsync(request.OrderId, cancellationToken);
-            if(order == null || order.UserId != request.UserId)
+            if(order == null)
                 throw new NotFoundException(nameof(Order), request.OrderId);
 
             order.State = (OrderState)request.NewState;

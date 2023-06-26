@@ -186,6 +186,13 @@ export const orderApi = {
                 return response.data;
             })
     },
+    getAllOrders() {
+        setJwt();
+        return instance.get(`order/getAll`)
+            .then(response => {
+                return response.data;
+            })
+    },
     getOrder(id) {
         setJwt();
         return instance.get(`order/${id}`)
@@ -193,9 +200,9 @@ export const orderApi = {
                 return response.data;
             })
     },
-    updateOrderState(body) {
+    updateOrderState(orderId,state) {
         setJwt();
-        return instance.put(`order`,body)
+        return instance.put(`order`,{orderId : orderId, state: state})
             .then(response => {
                 return response.data;
             })

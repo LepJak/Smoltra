@@ -1,20 +1,24 @@
 import React from "react";
 import { compareAsc, format } from 'date-fns'
 import { orderStateHelper } from "../../../../helpers/orderStateHelper";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col, Table, Button } from "react-bootstrap";
 import emptyImage from "../../../../images/empty_photo.jpg";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useNavigate } from "react-router-dom";
+
 
 const OrderUpdate = (props) => {
     let state = props?.orderUpdatePage?.order;
-    console.log(state)
-    const [age, setAge] = React.useState('');
-
+    const navigate = useNavigate();
+    const updateOrder = () =>{
+        props.updateOrder(state.orderId, state.state);
+        navigate("/allOrders");
+    }
     const handleChange = (event) => {
-        setAge(event.target.value);
+        props.updateOrderState(event.target.value);
     };
     const handleImageError = e => { e.target.src = emptyImage };
     const imageUrl = (id) => `https://localhost:7175/api/image/${id}`;
@@ -37,12 +41,13 @@ const OrderUpdate = (props) => {
 
             <p style={{ fontSize: "20px" }}>{date}</p>
             <FormControl style={{ margin: "30px" , width:"20rem"}}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <InputLabel id="demo-simple-select-label">Статус</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    label="Age"
+                    label="Статус"
                     onChange={handleChange}
+                    value={state.state}
                 >
                     <MenuItem value={1}>{orderStateHelper.getState(1).title}</MenuItem>
                     <MenuItem value={2}>{orderStateHelper.getState(2).title}</MenuItem>
@@ -63,7 +68,7 @@ const OrderUpdate = (props) => {
                 {items}
             </Table>
             <p style={{ fontWeight: "bold", fontSize: "20px" }}>ИТОГО: {state?.totalPrice}</p>
-
+            <Button onClick={updateOrder}>Обновить</Button>
         </>)
 }
 

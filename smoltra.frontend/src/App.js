@@ -34,6 +34,7 @@ import NavbarContainer from './components/Navbar/NavbarContainer';
 import SigninOidc from './auth/SigninOidc';
 import SignoutOidc from './auth/SignoutOidc';
 import MainPageContainer from './components/MainPage/MainPageContainer';
+import AllOrderListContainer from './components/Orders/AllOrderList/AllOrderListContainer';
 
 function App() {
   //loadUser();
@@ -46,10 +47,11 @@ function App() {
 
     <Provider store={store}>
       <AuthProvider userManager={userManager} store={store}>
-        <Container className="justify-content-center;" style={{ height: '100%', backgroundColor: 'white', minHeight: "100vh", padding: "0", display: 'flex', flexDirection: 'column' }}>
+        <Container className="justify-content-center;" style={{ height: '100%', opacity:"0.97", backgroundColor: 'white', minHeight: "100vh", padding: "0", display: 'flex', flexDirection: 'column' }}>
           <NavbarContainer />
           <BrowserRouter className="justify-content-center;">
-            <Routes>
+            <Routes>      
+              <Route path="allOrders" element={<AllOrderListContainer/>}/>
               <Route path="login" element={<Login />} />
               <Route path="aboutUs" element={<AboutUs />} />
               <Route path="registration" element={<Registration />} />

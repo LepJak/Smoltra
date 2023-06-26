@@ -3,7 +3,7 @@
 
 namespace Smoltra.Application.Orders.Queries.GetOrderList
 {
-    public class GetOrderListQuery : IRequest<OrderListVm>
+    public class GetOrderListQuery : IRequest<AllOrderListVm>
     {
     }
 }

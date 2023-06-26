@@ -1,10 +1,11 @@
 import { orderApi } from "../../api/api";
+import { getOrders } from "./allOrderList-reducer";
 
 const SET_ORDER = "SET_ORDER";
-const UPDATE_STATE ="UPDATE_STATE";
+const UPDATE_STATE = "UPDATE_STATE";
 
 let initialState = {
-    orderUpdatePage:{
+    orderUpdatePage: {
         order: {
             orderId: null,
             totalPrice: 0,
@@ -21,7 +22,7 @@ export const orderUpdateReducer = (state = initialState, action) => {
         case SET_ORDER: {
             return {
                 ...state,
-                orderUpdatePage:{
+                orderUpdatePage: {
                     order: action.order
                 }
             }
@@ -29,9 +30,9 @@ export const orderUpdateReducer = (state = initialState, action) => {
         case UPDATE_STATE: {
             return {
                 ...state,
-                orderUpdatePage:{
+                orderUpdatePage: {
                     order: {
-                        ...state.orderUpdatePage,
+                        ...state.orderUpdatePage.order,
                         state: action.newState
                     }
                 }
@@ -43,6 +44,12 @@ export const orderUpdateReducer = (state = initialState, action) => {
 }
 
 const setOrder = (order) => ({ type: SET_ORDER, order })
+const updateState = (newState) => ({ type: UPDATE_STATE, newState })
+
+export const updateOrderState = (state) => {
+    return (dispatch) =>
+        dispatch(updateState(state));
+}
 
 export const getOrder = (id) => {
     return (dispatch) => {
@@ -52,11 +59,11 @@ export const getOrder = (id) => {
             });
     }
 }
-export const updateOrder = (id) => {
+export const updateOrder = (id, state) => {
     return (dispatch) => {
-        orderApi.getOrder(id)
+        orderApi.updateOrderState(id, state)
             .then(data => {
-                dispatch(setOrder(data));
+                dispatch(getOrders);
             });
     }
 }

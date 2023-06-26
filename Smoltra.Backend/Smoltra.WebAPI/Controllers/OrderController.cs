@@ -33,6 +33,14 @@ namespace Smoltra.WebAPI.Controllers
             });
             return result;
         }
+        [HttpGet("getAll")]
+        public async Task<ActionResult<Smoltra.Application.Orders.Queries.GetOrderList.AllOrderListVm>> GetAll()
+        {
+            var result = await Mediator.Send(new Smoltra.Application.Orders.Queries.GetOrderList.GetOrderListQuery()
+            {
+            });
+            return result;
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDetailsVm>> Get(Guid id)
         {

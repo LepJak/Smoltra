@@ -30,7 +30,7 @@ const CustomNavbar = (props) => {
     <>
       <Navbar style={{ backgroundColor: 'white' }} key={expand} bg="none" expand={expand} className="mb-3">
         <Container fluid>
-          <Navbar.Brand href="#home" className='fw-bold' style={{ fontSize: '2.9rem', fontFamily: "ffl" }}>Смолтра</Navbar.Brand>
+          <Navbar.Brand href="/" className='fw-bold' style={{ fontSize: '2.9rem', fontFamily: "ffl" }}>Смолтра</Navbar.Brand>
           <Navbar.Toggle style={{ width: '90px' }} aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -44,11 +44,26 @@ const CustomNavbar = (props) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/">Главная</Nav.Link>
+                {
+                  auth.role != "Admin" &&
+                  props.auth.user != null &&
+                  <Nav.Link href="/">Главная</Nav.Link>
+                }
                 <Nav.Link href="/products">Каталог</Nav.Link>
                 <Nav.Link href="/news">Новости</Nav.Link>
-                <Nav.Link href="/aboutUS">О нас</Nav.Link>
-                <Nav.Link href="/contacts">Контакты</Nav.Link>
+                {
+                  auth.role == "Admin" &&
+                  props.auth.user != null &&
+                  <Nav.Link href="/allOrders">Заказы</Nav.Link>
+                }
+                {
+                  auth.role != "Admin" &&
+                  <Nav.Link href="/aboutUS">О нас</Nav.Link>
+                }
+                {
+                  auth.role != "Admin" &&
+                  <Nav.Link href="/contacts">Контакты</Nav.Link>
+                }
               </Nav>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {
@@ -66,7 +81,7 @@ const CustomNavbar = (props) => {
                   <Nav.Link href="/registration">Регистрация</Nav.Link>
                 }
                 {
-                auth.role != "Admin" &&
+                  auth.role != "Admin" &&
                   props.auth.user != null &&
                   <Nav.Link href="/orders">Мои заказы</Nav.Link>
                 }

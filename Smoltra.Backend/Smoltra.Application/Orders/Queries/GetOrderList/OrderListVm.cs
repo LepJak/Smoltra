@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Smoltra.Application.Orders.Queries.GetOrderList
 {
-    public class OrderListVm
+    public class AllOrderListVm
     {
         public List<OrderListItem> Orders { get; set; } = new();
     }

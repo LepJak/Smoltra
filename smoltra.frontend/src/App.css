@@ -44,4 +44,9 @@
 body{
   margin: 0;
   padding: 0;
+  background-image: url("./images/plan.jpg");
+  background-size: 200px 150px;
+  opacity:"0.2";
+  background-repeat: repeat;
+
 }

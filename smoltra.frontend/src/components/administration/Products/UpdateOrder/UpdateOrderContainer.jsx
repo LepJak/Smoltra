@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import React from "react";
 import { withRouter } from "../../../../extensions/WithRoute";
 import OrderUpdate from "./UpdateOrder";
-import { getOrder } from "../../../../redux/reducers/updateOrder-reducer";
+import { getOrder, updateOrder, updateOrderState } from "../../../../redux/reducers/updateOrder-reducer";
 
 class OrderUpdateContainer extends React.Component{
     componentDidMount(){            
@@ -23,6 +23,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getOrder: (id) => {
             dispatch(getOrder(id))
+        },
+        updateOrderState : (state) =>{
+            dispatch(updateOrderState(state))
+        },
+        updateOrder : (id,state) =>{
+            dispatch(updateOrder(id, state))
         }
     }
 }
