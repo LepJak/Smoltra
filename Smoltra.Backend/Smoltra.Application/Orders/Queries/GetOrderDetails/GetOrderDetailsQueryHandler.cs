@@ -35,6 +35,7 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
 
             return new OrderDetailsVm
             {
+                Email = order.Email,
                 State = (int) order.State, 
                 Created= order.Created,
                 OrderId = order.Id,

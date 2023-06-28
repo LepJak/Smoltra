@@ -15,12 +15,20 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
     {
         public CartItemRepository(ISmoltraDbContext context) : base(context)
         { }
+
+        public override async Task<CartItem> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.CartItems
+                .Include(p => p.Product)               
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+        }
         public async Task<IEnumerable<CartItem>> 
             GetListByConditionWithProductAsync(Expression<Func<CartItem, bool>> predicate, 
             CancellationToken cancellationToken)
         {
             return await _context.CartItems
                 .Include(x => x.Product)
+                .ThenInclude(x => x.GeneralImageForProduct)
                 .AsNoTracking()
                 .Where(predicate).
                 ToListAsync(cancellationToken);

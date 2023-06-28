@@ -17,7 +17,7 @@ namespace Smoltra.Application.Orders.Queries.GetOrderList
         {
             var orders = await _orderRepository
                 .GetListAsync(cancellationToken);
-            var result = _mapper.Map<List<OrderListItem>>(orders);
+            var result = _mapper.Map<List<OrderListItem>>(orders).OrderBy(x => x.State).ToList();
             return new AllOrderListVm { Orders = result };
         }
     }

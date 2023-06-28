@@ -24,7 +24,7 @@ namespace Smoltra.Application.Orders.Queries.GetListOrderByUserId
             var orders = await _orderRepository
                 .GetListByConditionAsyncWithOrdersItem(x => x.UserId == request.UserId, 
                 cancellationToken);
-            var result = _mapper.Map<List<OrderListItemDto>>(orders);
+            var result = _mapper.Map<List<OrderListItemDto>>(orders).OrderBy(x => x.State).ToList();
             return new OrderListVm { Orders = result };
         }
     }

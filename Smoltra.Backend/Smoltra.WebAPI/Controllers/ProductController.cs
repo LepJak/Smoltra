@@ -19,10 +19,11 @@ namespace Smoltra.WebAPI.Controllers
 
         [HttpGet]
         public async Task<ActionResult<ProductListVm>>
-            Get(int numberPage = 1, int countItems = 20)
+            Get(string searchString, int numberPage = 1, int countItems = 20)
         {
             var request = new GetProductProductListQueryDto()
             {
+                SearchingString = searchString,
                 NumberPage = numberPage,
                 CountProducts = countItems
             };

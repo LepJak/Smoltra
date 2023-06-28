@@ -13,6 +13,7 @@ namespace Smoltra.Application.Orders.AddOrderItems
 {
     public class AddOrderItemsCommand : IRequest<Guid>
     {
+        public string Email { get; set; }
         public Guid UserId { get; set; }
         public List<OrderItemForAddingDto> OrderItems { get; set; }
             = new();

@@ -1,16 +1,16 @@
 import Products from "./Products";
 import {connect} from "react-redux";
-import { deleteProduct, setProducts } from "../../redux/reducers/products-reduser";
+import { deleteProduct, getProducts, setProducts } from "../../redux/reducers/products-reduser";
 import { productApi } from '../../api/api';
 import React from "react";
 import { getProductsGuidsFromCart } from "../../redux/reducers/cart-reducer";
 import { addProductsInCart } from "../../redux/reducers/cart-reducer";
+import { deleteProductFromCart } from "../../redux/reducers/cart-reducer";
+
 
 class ProductsContainer extends React.Component{
    componentDidMount(){             
-        productApi.getProducts(1,20).then(data=>{
-            this.props.setProducts(data?.products);
-        }); 
+        this.props.getProducts("");
         this.props.getProductsGuidsFromCart();
    }
   
@@ -40,6 +40,12 @@ const mapDispatchToProps = (dispatch) => {
         } ,
         deleteProduct : (product) => {
             dispatch(deleteProduct(product))
+        },
+        deleteProductFromCart : (id) =>{
+            dispatch(deleteProductFromCart(id))
+        },
+        getProducts: (search) =>{
+            dispatch(getProducts(search))
         }
     } 
 }

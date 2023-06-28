@@ -9,7 +9,6 @@ namespace Smoltra.Domain.Entities
 {
     public class GeneralImageForProduct : BaseEntity
     {
-        public Image? Image { get; set; }
         public Guid? ImageId { get; set; }
     }
 }

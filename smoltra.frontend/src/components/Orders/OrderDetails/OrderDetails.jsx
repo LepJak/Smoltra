@@ -18,8 +18,8 @@ const OrderDetails = (props) => {
             <td><img style={{width:"120px"}} onError={handleImageError}  src={imageUrl(x.imageId)}/></td>
             <td>{x.nameProduct}</td>
             <td>{x.count}</td>
-            <td>{x.priceForOne}</td>
-            <td>{x.totalPrice}</td>
+            <td>{x.priceForOne} ₽</td>
+            <td>{x.totalPrice} ₽</td>
         </tr>))
     //let orders = state?.orders?.map((n) => <OrderListItem order={n}/>);
     return (
@@ -41,7 +41,7 @@ const OrderDetails = (props) => {
                 </tr>
                 {items}
             </Table>
-            <p style={{fontWeight:"bold", fontSize:"20px"}}>ИТОГО: {state.totalPrice}</p>
+            <p style={{fontWeight:"bold", fontSize:"20px"}}>ИТОГО: {state.totalPrice} ₽</p>
 
         </>)
 }

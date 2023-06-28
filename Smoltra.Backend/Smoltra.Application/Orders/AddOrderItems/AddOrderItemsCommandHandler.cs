@@ -27,6 +27,7 @@ namespace Smoltra.Application.Orders.AddOrderItems
                 throw new ArgumentException("Products count equal to 0");
             var order = new Order
             {
+                Email = request.Email,
                 UserId = request.UserId,
                 CreatedBy = request.UserId,
                 Created = DateTime.Now,
@@ -45,8 +46,7 @@ namespace Smoltra.Application.Orders.AddOrderItems
                         Count = cartItem.Count,
                         ProductId = cartItem.ProductId,
                         PriceForUnit = product?.Price ?? 0,
-                        Price = totalPrice
-
+                        Price = totalPrice,
                     }); ;
                     _cartRepository.Remove(cartItem);
                 }

@@ -78,7 +78,7 @@ const CustomNavbar = (props) => {
                 }
 
                 {props.auth.user == null &&
-                  <Nav.Link href="/registration">Регистрация</Nav.Link>
+                  <Nav.Link href="https://localhost:44386/Auth/Register">Регистрация</Nav.Link>
                 }
                 {
                   auth.role != "Admin" &&

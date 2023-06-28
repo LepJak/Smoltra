@@ -21,6 +21,7 @@ const UpdateProduct = (props) => {
     const navigate = useNavigate();
     const updateProduct =()=>{
         props.updateProduct(state.product);
+        navigate("/products");
     }
     const changeField = (e) =>{
         props.changeProductProp(e.target.id, e.currentTarget.value)
@@ -41,10 +42,12 @@ const UpdateProduct = (props) => {
 
     let specGourps = state.product.specificationGroups?.map(sG =>
         <ProductGroupSpecificationCreateTemplate 
+        deleteSpecG={props.deleteSpecG}
         changeSpecValue={props.changeSpecificationValue} 
         changeSpecGroupName={props.changeNameSpecificationGroup} 
         addSpecification={props.createSpecification} 
-        specGroup={sG} />
+        specGroup={sG} 
+        deleteSpec={props.deleteSpec}/>
     );
 
     const addImage = (file) => {

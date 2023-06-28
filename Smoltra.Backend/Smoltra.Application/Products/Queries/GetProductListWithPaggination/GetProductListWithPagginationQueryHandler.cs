@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Smoltra.Application.Common.Interfaces.Repositories;
+using System.Linq;
 
 namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
 {
@@ -13,17 +14,35 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
 
-        public async Task<ProductListVm> 
+        public async Task<ProductListVm>
             Handle(GetProductListWithPagginationQuery request, CancellationToken cancellationToken)
         {
-            
+
             var products = await _repository
-                .GetListByPagginationAsync(request.CountProducts,
-                request.NumberPage, cancellationToken);
+                .GetListByPagginationAsync(50,
+                request.NumberPage, request.SearchingString, cancellationToken);
 
             var result = _mapper.Map<List<ProductItemDto>>(products);
+            var searchingString = request.SearchingString.Replace("'", "");
+            var newResult = new List<ProductItemDto>();
+            if (!string.IsNullOrEmpty(searchingString))
+            {
+                foreach (var item in result)
+                {
+                    var normName = item.Name.ToLower();
+                    var normSearch = searchingString.ToLower();
+                    if (normName.Contains(normSearch))
+                        newResult.Add(item);
+                }
+            }
+            else
+            {
+                newResult = result;
+            }
+                
 
-            return new ProductListVm { Products =  result};
+
+            return new ProductListVm { Products = newResult };
         }
     }
 }

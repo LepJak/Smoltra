@@ -64,7 +64,12 @@ const CreateProduct = (props) => {
     }
 
     let specGourps = state.specificationGroups?.map(sG =>
-        <ProductGroupSpecificationCreateTemplate changeSpecValue={props.changeSpecificationValue} changeSpecGroupName={props.changeNameSpecificationGroup} addSpecification={props.createSpecification} specGroup={sG} />
+        <ProductGroupSpecificationCreateTemplate changeSpecValue={props.changeSpecificationValue} 
+        changeSpecGroupName={props.changeNameSpecificationGroup} 
+        addSpecification={props.createSpecification} 
+        deleteSpec={props.deleteSpec}
+        deleteSpecG={props.deleteSpecG}
+        specGroup={sG} />
     );
 
     const addImage = (file) => {

@@ -40,6 +40,7 @@ const OrderUpdate = (props) => {
             <h2>Заказ № {state?.orderId}</h2>
 
             <p style={{ fontSize: "20px" }}>{date}</p>
+            <p style={{ fontSize: "20px" }}>{state?.email}</p>
             <FormControl style={{ margin: "30px" , width:"20rem"}}>
                 <InputLabel id="demo-simple-select-label">Статус</InputLabel>
                 <Select

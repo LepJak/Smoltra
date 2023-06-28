@@ -6,6 +6,7 @@ using Smoltra.Application.Orders.ChangeOrderState;
 using Smoltra.Application.Orders.Queries.GetListOrderByUserId;
 using Smoltra.Application.Orders.Queries.GetOrderDetails;
 using Smoltra.WebAPI.Models;
+using System.Security.Claims;
 
 namespace Smoltra.WebAPI.Controllers
 {
@@ -20,6 +21,8 @@ namespace Smoltra.WebAPI.Controllers
         public async Task<ActionResult<Guid>> Post([FromBody]AddOrderItemsDto addOrderItemsDto )
         {
             var command = _mapper.Map<AddOrderItemsCommand>(addOrderItemsDto);
+            var email = User.FindFirst(ClaimTypes.Email).Value;
+            command.Email = email;
             command.UserId = UserId;
             var id = await Mediator.Send(command);
             return id;

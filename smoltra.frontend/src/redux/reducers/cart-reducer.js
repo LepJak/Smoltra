@@ -8,7 +8,8 @@ const CHANGE_COUNT = 'CHANGE_COUNT';
 
 let initialState = {
     items: [],
-    productsGuidFromCart: []
+    productsGuidFromCart: [],
+    totalPrice : 0
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -17,13 +18,13 @@ export const cartReducer = (state = initialState, action) => {
             console.log("!");
             return {
                 ...state,
-                productsGuidFromCart: [...state.productsGuidFromCart, action.product]
+                productsGuidFromCart: [...state.productsGuidFromCart, action.product],
             }
         }
         case SET_PRODUCTS_GUIDS_FROM_CART: {
             return {
                 ...state,
-                productsGuidFromCart: [action.id]
+                productsGuidFromCart: [...action.productsGuidsFromCart]
             }
         }
         case REMOVE_PRODUCT_FROM_CART: {
@@ -39,24 +40,38 @@ export const cartReducer = (state = initialState, action) => {
                 }
             }
             console.log(arr);
+            let totalPrice =arr.reduce((a, b) => a + b.totalPrice, 0);
             return {
                 ...state,
-                items: arr
+                items: arr,
+                totalPrice : totalPrice
             }
         }
         case SET_PRODUCTS_IN_CART: {
+            let newItems = action.products.map(x => ({
+                ...x,
+                totalPrice: x.price * x.count
+            }));
+            let totalPrice =newItems.reduce((a, b) => a + b.totalPrice, 0);
+            console.log(totalPrice)
             return {
                 ...state,
-                items: action.products
+                items: newItems,
+                totalPrice: totalPrice
             }
         }
         case CHANGE_COUNT: {
             var item = state.items.find(x => x === action.item);
             item.count = action.count;
+            item.totalPrice = item.count * item.price
             let arr = [...state.items];
+            let totalPrice = arr.reduce((a, b) => a + b.totalPrice, 0);
+            console.log(totalPrice)
             return {
                 ...state,
-                items: arr
+                items: arr,
+                totalPrice: totalPrice
+                
             }
         }
         default:
@@ -74,14 +89,14 @@ export const addProductsInCart = (id) => {
     return (dispatch) => {
         cartApi.addProductInCart(id)
             .then(data => {
-                dispatch(setProductInCart(id));
+                dispatch(setProductInCart(id));   
+                console.log(` reducer ${data}`)                
             });
     }
 }
 
 export const changeCountInCart = (item, count) => {
     return (dispatch) => {
-        console.log(count)
         cartApi.updateCartItem(item.cartItemId, count)
             .then(data => {
                 dispatch(changeCount(item, count));
@@ -109,9 +124,8 @@ export const getProductsInCart = () => {
 
 export const getProductsGuidsFromCart = () => {
     return (dispatch) => {
-        let data = cartApi.getProductsGuidsFromCart()
+        cartApi.getProductsGuidsFromCart()
             .then(data => {
-                console.log(data.itemsGuidList)
                 dispatch(setProductsGuidFromCart(data.itemsGuidList))
             });
     }

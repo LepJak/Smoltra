@@ -9,6 +9,7 @@ namespace Smoltra.Application.Products.Queries.GetProductListWithPaggination
 {
     public class GetProductListWithPagginationQuery : IRequest<ProductListVm>
     {
+        public string? SearchingString { get; set; }
         public int NumberPage { get; set; }
         public int CountProducts { get; set; }
     }

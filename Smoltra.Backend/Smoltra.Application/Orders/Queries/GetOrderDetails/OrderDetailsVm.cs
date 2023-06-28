@@ -7,6 +7,7 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
 {
     public class OrderDetailsVm
     {
+        public string?  Email { get; set; }
         public Guid OrderId { get; set; }
         public int State { get; set; }
         public DateTime Created { get; set; }
@@ -14,7 +15,7 @@ namespace Smoltra.Application.Orders.Queries.GetOrderDetails
         {
             get
             {
-                return OrderItems.Sum(x => x.Count * x.TotalPrice);
+                return OrderItems.Sum(x => x.TotalPrice);
             }
         }
         public List<OrderProductItemDto> OrderItems { get; set; }

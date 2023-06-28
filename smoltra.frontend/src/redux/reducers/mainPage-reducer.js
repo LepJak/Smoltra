@@ -18,7 +18,7 @@ export const mainPageReducer = (state = initialState, action) => {
                 ...state,
                 mainPage: {
                     ...state.mainPage,
-                    news: action.news
+                    news: action.news.slice(0, 5)
 
                 }
             }
@@ -28,7 +28,7 @@ export const mainPageReducer = (state = initialState, action) => {
                 ...state,
                 mainPage: {
                     ...state.mainPage,
-                    topSelers: action.products
+                    topSelers: action.products.slice(0, 5)
 
                 }
             }
@@ -51,7 +51,7 @@ export const getLastNews = () => (dispatch) => {
 }
 export const getProducts = () => (dispatch) => {
 
-    let data = productApi.getProducts()
+    let data = productApi.getProducts("")
         .then(data => {
             dispatch(setTopSelers(data.products))
         });

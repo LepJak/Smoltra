@@ -2,9 +2,10 @@ import { connect } from "react-redux";
 import { productApi } from "../../../../api/api";
 import { withRouter } from "../../../../extensions/WithRoute";
 import axios from "axios";
-import { changeProductProp,changeSpecificationValue, setProduct,addImage,changeNameSpecificationGroup, deleteImage,createSpecificationGroup, createSpecification} from "../../../../redux/reducers/updateProduct-reducer";
+import { changeProductProp,changeSpecificationValue,deleteSpec, deleteSpecG, setProduct,addImage,changeNameSpecificationGroup, deleteImage,createSpecificationGroup, createSpecification} from "../../../../redux/reducers/updateProduct-reducer";
 import UpdateProduct from "./UpdateProduct";
 import React from "react";
+import { getProducts } from "../../../../redux/reducers/products-reduser";
 
 class UpdateProductContainer extends React.Component{
 
@@ -25,7 +26,9 @@ class UpdateProductContainer extends React.Component{
              createSpecificationGroup={this.props.createSpecificationGroup}
              createSpecification={this.props.createSpecification}
              changeNameSpecificationGroup={this.props.changeNameSpecificationGroup}
-             changeSpecificationValue={this.props.changeSpecificationValue}/>)
+             changeSpecificationValue={this.props.changeSpecificationValue}
+             deleteSpecG={this.props.deleteSpecG}/>
+             )
     }
 
     
@@ -34,7 +37,7 @@ const updateProduct = (product) => {
     return (dispatch) => {
         productApi.updateProduct(product)
         .then(data=>{
-            dispatch();
+            dispatch(getProducts());
         });
 
     }
@@ -75,6 +78,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateProduct: (product) =>{
             dispatch(updateProduct(product))
+        },
+        deleteSpecG:(spG) =>{
+            dispatch(deleteSpecG(spG))
+        },
+        deleteSpec:(spG, sp) =>{
+            dispatch(deleteSpec(spG, sp))
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Smoltra.Domain.Entities
 {
     public class Order : BaseAuditableEntity
     {
+        public string? Email { get; set; }
         public Guid UserId { get; set; }       
         public string? Description { get; set; }
         public List<OrderItem> OrderItems { get; set; }

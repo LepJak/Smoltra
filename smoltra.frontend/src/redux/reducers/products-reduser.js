@@ -56,3 +56,14 @@ export const deleteProduct = (product) => {
             });
     }
 }
+
+export const getProducts = (search="") => {
+    return (dispatch) => {
+        console.log(`!@#!# ${search}`);
+        productApi.getProducts(search, 1, 20)
+            .then(data => {
+                console.log(data)
+                dispatch(setProducts(data.products));
+            });
+    }
+}

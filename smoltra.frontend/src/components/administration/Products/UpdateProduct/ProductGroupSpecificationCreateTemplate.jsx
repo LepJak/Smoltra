@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import TextField from '@mui/material/TextField';
 
@@ -7,12 +7,18 @@ import TextField from '@mui/material/TextField';
 const ProductGroupSpecificationCreateTemplate = (props) => {
 
 
-    const changeGroupName =(e) =>{
-        props.changeSpecGroupName(props.specGroup,e.currentTarget.value)
+    const changeGroupName = (e) => {
+        props.changeSpecGroupName(props.specGroup, e.currentTarget.value)
     }
 
-    const changeSpecificationValue =(spec, newSpec) =>{
-        props.changeSpecValue(props.specGroup,spec, newSpec)
+    const changeSpecificationValue = (spec, newSpec) => {
+        props.changeSpecValue(props.specGroup, spec, newSpec)
+    }
+    const deleteSpecG = () =>{
+        props.deleteSpecG(props.specGroup);
+    }
+    const deleteSpec = (spec) =>{
+        props.deleteSpec(props.specGroup, spec);
     }
 
     const addSpecification = (group) => {
@@ -20,19 +26,25 @@ const ProductGroupSpecificationCreateTemplate = (props) => {
     }
 
     let speciifications = props.specGroup.specifications?.map(s =>
-        <ProductSpecificationCreateTemplate changeSpecValue={changeSpecificationValue} spec={s}/>
+        <ProductSpecificationCreateTemplate changeSpecValue={changeSpecificationValue} deleteSpec={deleteSpec} spec={s} />
     );
-    return (<div style={{ border: "1px solid gray", borderRadius: "8px", backgroundColor: "#ebe2e6", padding: "8px", margin:"5px 0 5px 0" }}>
-        <TextField
-            id="standard-multiline-flexible"
-            label="Название группы характеристик"
-            maxRows={1}
-            variant="standard"
-            style={{ width: "100%", margin:"0 0 20px 0" }}
-            defaultValue={props.specGroup.name}
-            onChange={changeGroupName}
-            
-        />
+    return (<div style={{ border: "1px solid gray", borderRadius: "8px", backgroundColor: "#ebe2e6", padding: "8px", margin: "5px 0 5px 0" }}>
+        <Row>
+            <Col><TextField
+                id="standard-multiline-flexible"
+                label="Название группы характеристик"
+                maxRows={1}
+                variant="standard"
+                style={{ width: "100%", margin: "0 0 20px 0" }}
+                defaultValue={props.specGroup.name}
+                onChange={changeGroupName}
+
+            /></Col>
+            <Col>
+                <Button onClick={deleteSpecG} variant='danger'>Удалить</Button>
+            </Col>
+        </Row>
+
 
         <Table style={{ width: "100%" }}>
             {speciifications}
@@ -43,13 +55,13 @@ const ProductGroupSpecificationCreateTemplate = (props) => {
     );
 }
 const ProductSpecificationCreateTemplate = (props) => {
-    const changeSpecificationName =(e)=>{
-        props.changeSpecValue(props.spec,{name: e.currentTarget.value, value: props.spec.value});      
+    const changeSpecificationName = (e) => {
+        props.changeSpecValue(props.spec, { name: e.currentTarget.value, value: props.spec.value });
     }
-    const changeSpecificationValue =(e)=>{
-        props.changeSpecValue(props.spec,{value: e.currentTarget.value, name: props.spec.name});      
+    const changeSpecificationValue = (e) => {
+        props.changeSpecValue(props.spec, { value: e.currentTarget.value, name: props.spec.name });
     }
-    return(
+    return (
         <tr>
             <td>
                 <TextField
@@ -57,7 +69,7 @@ const ProductSpecificationCreateTemplate = (props) => {
                     label="Название характеристики"
                     value={props.spec.name}
                     maxRows={1}
-                    
+
                     variant="standard"
                     style={{ width: "100%" }}
                     onChange={changeSpecificationName}
@@ -66,12 +78,16 @@ const ProductSpecificationCreateTemplate = (props) => {
             <td>
 
                 <TextField
-                 value={props.spec.value}
+                    value={props.spec.value}
                     id="standard-multiline-flexible"
                     label="Значение"
                     variant="standard"
+                    style={{ width: "100%" }}
                     onChange={changeSpecificationValue}
                 />
+            </td>
+            <td style={{ maxWidth: "200px" }}>
+                <Button onClick={() => {props.deleteSpec(props.spec)}} variant='danger'>Удалить</Button>
             </td>
         </tr>
     )

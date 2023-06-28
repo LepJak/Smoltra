@@ -66,7 +66,7 @@ namespace Smoltra.Application.Products.Commands.UpdateProduct
 
             if (genIm != null)
             {
-                product.GeneralImageForProduct = new GeneralImageForProduct { Image = genIm }; ;
+                product.GeneralImageForProduct = new GeneralImageForProduct { ImageId = genIm.Id }; ;
             }
 
             foreach (var specificationGroup in product.SpecificationGroups)

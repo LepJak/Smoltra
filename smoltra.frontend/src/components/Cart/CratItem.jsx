@@ -91,7 +91,7 @@ const ProductCard = (props) => {
                         </Col>
                     </Row>
                     <Row  className="text-end">
-                        <p>{props.order.price} ₽</p>
+                        <p>{props.order.price} ₽({props.order.totalPrice} ₽)</p>
                     </Row>
 
 

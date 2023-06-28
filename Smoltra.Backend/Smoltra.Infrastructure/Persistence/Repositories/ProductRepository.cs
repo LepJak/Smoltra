@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Smoltra.Application.Common.Interfaces;
 using Smoltra.Application.Common.Interfaces.Repositories;
 using Smoltra.Domain.Entities;
@@ -15,7 +16,7 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
 
         public async Task<List<Product>> 
             GetListByPagginationAsync(int countProducts, 
-            int multiplierSkip, CancellationToken cancellationToken)
+            int multiplierSkip, string searchingString, CancellationToken cancellationToken)
         {
             var products = await _context.Products
                     .Skip((multiplierSkip - 1) * countProducts)
@@ -23,6 +24,7 @@ namespace Smoltra.Infrastructure.Persistence.Repositories
                     .Include(p => p.Category)
                     .Include(p => p.GeneralImageForProduct)   
                     .Where(p => !p.IsDeleted)
+                    
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
             return products;

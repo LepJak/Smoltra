@@ -11,8 +11,8 @@ const setJwt =() =>{
 }
 
 export const productApi = {
-    getProducts(numberPage = 1, countItems = 20) {
-        return instance.get(`product?numberPage=${numberPage}&countItems=${countItems}`)
+    getProducts(searchString="1",numberPage = 1, countItems = 50) {
+        return instance.get(`product?numberPage=${numberPage}&countItems=${50}&searchString='${searchString}'`)
             .then(response => {
                 return response.data;
             })
@@ -50,7 +50,6 @@ export const productApi = {
             })
     },
     updateProduct(product) {
-        console.log(product);
         setJwt();
         const formData = new FormData();
         console.log("updateProduct");
@@ -60,7 +59,6 @@ export const productApi = {
         formData.append('description', product.description);
         formData.append('SpecificationGroups', JSON.stringify(product.specificationGroups));
 
-        debugger
         let newImages = product.images?.filter(x => x.id == null);
 
         for (let i = 0; i < newImages?.length; i++) {

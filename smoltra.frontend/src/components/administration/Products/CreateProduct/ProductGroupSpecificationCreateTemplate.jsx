@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import TextField from '@mui/material/TextField';
-
+import {Row, Col} from 'react-bootstrap';
 
 const ProductGroupSpecificationCreateTemplate = (props) => {
 
 
     const changeGroupName =(e) =>{
         props.changeSpecGroupName(props.specGroup,e.currentTarget.value)
+    }
+    const deleteSpecG = () =>{
+        props.deleteSpecG(props.specGroup);
+    }
+    const deleteSpec = (spec) =>{
+        props.deleteSpec(props.specGroup, spec);
     }
 
     const changeSpecificationValue =(spec, newSpec) =>{
@@ -20,10 +26,11 @@ const ProductGroupSpecificationCreateTemplate = (props) => {
     }
 
     let speciifications = props.specGroup.specifications?.map(s =>
-        <ProductSpecificationCreateTemplate changeSpecValue={changeSpecificationValue} spec={s}/>
+        <ProductSpecificationCreateTemplate changeSpecValue={changeSpecificationValue}  deleteSpec={deleteSpec} spec={s}/>
     );
     return (<div style={{ border: "1px solid gray", borderRadius: "8px", backgroundColor: "#ebe2e6", padding: "8px", margin:"5px 0 5px 0" }}>
-        <TextField
+        <Row>
+            <Col><TextField
             id="standard-multiline-flexible"
             label="Название группы характеристик"
             maxRows={1}
@@ -33,7 +40,11 @@ const ProductGroupSpecificationCreateTemplate = (props) => {
             onChange={changeGroupName}
             
         />
-
+        </Col>
+        <Col>
+            <Button onClick={deleteSpecG} variant='danger'>Удалить</Button>
+        </Col>
+    </Row>
         <Table style={{ width: "100%" }}>
             {speciifications}
         </Table>
@@ -68,8 +79,12 @@ const ProductSpecificationCreateTemplate = (props) => {
                     id="standard-multiline-flexible"
                     label="Значение"
                     variant="standard"
+                    style={{ width: "100%" }}
                     onChange={changeSpecificationValue}
                 />
+            </td>
+            <td style={{ maxWidth: "200px" }}>
+                <Button onClick={() => {props.deleteSpec(props.spec)}} variant='danger'>Удалить</Button>
             </td>
         </tr>
     )

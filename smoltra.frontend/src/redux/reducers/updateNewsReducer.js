@@ -1,8 +1,8 @@
 import { newsApi } from "../../api/api";
-
 //action types
 const CHANGE_VALUE_FIELD = "CHANGE_VALUE_FIELD";
 const SET_NEWS = "SET_NEWS"
+
 
 //state
 let initialState = {
@@ -77,6 +77,6 @@ export const updateNews = (news) => (dispatch) => {
 export const deleteNews = (id) => (dispatch) => {
     newsApi.deleteNews(id)
         .then(data => {
-            
+            dispatch(getNews())
         });
 }

@@ -10,6 +10,7 @@ import CarouselBeta from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import nextImage from "../../images/next.png";
 import ".//style.css";
+import { NavLink } from "react-router-dom";
 
 const MainPage = (props) => {
     const responsive = {
@@ -37,15 +38,18 @@ const MainPage = (props) => {
     };
     const state = props.mainPage;
     let lastNews = state.news?.map(x => (<Carousel.Item style={{ height: '100%' }} >
-        <Card className="bg-dark text-white" style={{ height: '100%' }} >
-            <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
-            <Card.ImgOverlay style={{ height: '100%', width: '100%' }}>
-                <Card.Title style={{ padding: '0 90px 0 90px ' }}>{x.title}</Card.Title>
-                <Card.Text style={{ padding: '0 60px 0 60px' }}>
-                    {x.annotation}
-                </Card.Text>
-            </Card.ImgOverlay>
-        </Card>
+        <NavLink to={'/news/' + x?.id}>
+            <Card className="bg-dark text-white" style={{ height: '100%' }} >
+                <Card.Img style={{ height: '20rem', objectFit: 'cover', borderRadius: "5px" }} src={emptyImage} alt="Card image" />
+                <Card.ImgOverlay style={{ height: '100%', width: '100%' }}>
+                    <Card.Title style={{ padding: '0 120px 0 120px ', fontSize: "25px" }}>{x.title}</Card.Title>
+                    <Card.Text style={{ padding: '0 90px 0 90px', fontSize: "19px" }}>
+                        {x.annotation}
+                    </Card.Text>
+                </Card.ImgOverlay>
+            </Card>
+        </NavLink>
+
     </Carousel.Item>))
 
     const topSales = state?.topSelers?.map(x => <ProductCard product={x} />) ?? []
@@ -57,7 +61,7 @@ const MainPage = (props) => {
         <div style={{ border: '1px solid black', borderRadius: '5px', backgroundColor: '#d6dbdf36', margin: '0 0 20px 0' }}>
             <h2 style={{ margin: '20px' }}>Новости</h2>
             <Carousel controls={true} style={{ height: '20rem', margin: '20px' }}>
-               {lastNews}
+                {lastNews}
             </Carousel>
         </div>
         <div style={{ border: '1px solid black', borderRadius: '5px', backgroundColor: '#d6dbdf36', margin: '0 0 20px 0' }}>

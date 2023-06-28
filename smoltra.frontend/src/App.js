@@ -35,6 +35,7 @@ import SigninOidc from './auth/SigninOidc';
 import SignoutOidc from './auth/SignoutOidc';
 import MainPageContainer from './components/MainPage/MainPageContainer';
 import AllOrderListContainer from './components/Orders/AllOrderList/AllOrderListContainer';
+import Contacts from './components/Contacts/Contacts';
 
 function App() {
   //loadUser();
@@ -54,6 +55,7 @@ function App() {
               <Route path="allOrders" element={<AllOrderListContainer/>}/>
               <Route path="login" element={<Login />} />
               <Route path="aboutUs" element={<AboutUs />} />
+              <Route path="contacts" element={<Contacts />} />
               <Route path="registration" element={<Registration />} />
               <Route path="*" element={<MainPageContainer />} />
               <Route path="createProduct" element={<CreateProductContainer />} />

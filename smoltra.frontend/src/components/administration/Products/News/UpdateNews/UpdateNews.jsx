@@ -5,17 +5,27 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Stack from '@mui/material/Stack';
 import "./style.css";
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateNews = (props) => {
     const state = props.updateNewsPage
     let config = {
         language: "ru"
     }
+    const navigate = useNavigate();
     console.log(props)
     const changeField = (e) => {
         // debugger;
         props.changeValueField(e.target.id, e.currentTarget.value)
 
+    }
+    const updateNews = () =>{
+        props.updateNews(state?.news)
+        navigate("/news")
+    }
+    const deleteNews = () =>{
+        props.deleteNews(state?.news?.id)
+        navigate("/news")
     }
 
     return (<>
@@ -40,7 +50,7 @@ const UpdateNews = (props) => {
                 InputLabelProps={{ shrink: true }} />
         </Stack>
         <h3>
-            Конетнет новости
+            Контент новости
         </h3>
         <CKEditor
 
@@ -58,9 +68,9 @@ const UpdateNews = (props) => {
         <Stack direction={"row"} style={{ margin:"10px"}} spacing={2} useFlexGap flexWrap="wrap" 
   justifyContent="center"
   alignItems="center">
-            <Button style={{ width: "100%",maxWidth: "25%"  }} variant='danger' onClick={()=>props.deleteNews(state?.news?.id)}>Удалить</Button>
+            <Button style={{ width: "100%",maxWidth: "25%"  }} variant='danger' onClick={deleteNews}>Удалить</Button>
             <Button variant='secondary' style={{ maxWidth: "25%" , width: "100%"}}>Отмена</Button>
-            <Button variant='success' onClick={()=>props.updateNews(state?.news)}  style={{ width: "100%",maxWidth: "28%" }}>Обновить</Button>
+            <Button variant='success' onClick={updateNews}  style={{ width: "100%",maxWidth: "28%" }}>Обновить</Button>
         </Stack>
     </>)
 }

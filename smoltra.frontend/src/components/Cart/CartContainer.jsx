@@ -20,7 +20,7 @@ class CartContainer extends React.Component{
  
 const mapStateToProps = (state) => {
     return {
-        items: state.cartReducer.items
+        cartReducer: state.cartReducer
     }
 }
 const mapDispatchToProps = (dispatch) => {

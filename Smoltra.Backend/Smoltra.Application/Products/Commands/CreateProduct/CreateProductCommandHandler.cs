@@ -46,12 +46,13 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
             };
 
             var id = await _productRepository.AddAsync(product, cancellationToken);
+            product.Images = new List<Image>();
             bool defaultImage = true;
             foreach (var image in request.Images)
             {
                 var dbImage = new Image();
                 var guid = await _imageRepository.AddAsync(dbImage, cancellationToken);
-                product?.Images?.Add(dbImage);                 
+                product.Images.Add(dbImage);                 
                 _fileService.SaveProductImage(dbImage.Id, image);
                 if (defaultImage == true)
                 {
@@ -60,6 +61,7 @@ namespace Smoltra.Application.Products.Commands.CreateProduct
                 }
                 
             }
+            await _productRepository.SaveChangesAsync(cancellationToken);
 
             try
             {

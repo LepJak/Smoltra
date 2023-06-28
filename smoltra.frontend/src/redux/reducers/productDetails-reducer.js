@@ -1,6 +1,6 @@
 //action types
 const SET_PRODUCT_DETAIL = "SET_PRODUCT_DETAIL";
-
+const SWAP_IMAGE ="SWAP_IMAGE";
 //state
 let initialState = {
     productDetailsPage: {
@@ -56,9 +56,21 @@ export const productDetailsReducer = (state = initialState, action) => {
                     }                        
                     }                  
         }
+        case SWAP_IMAGE:{
+            return {...state,
+                productDetailsPage :{
+                    ...state.productDetailsPage,
+                    product:{
+                        ...state.productDetailsPage.product,
+                        generalImageId : action.id
+                    }
+                }                        
+                }
+        }
         default:
             return state;
     }
 }
 
 export const setProduct = (product) => ({type: SET_PRODUCT_DETAIL, product})
+export const swapImage = (id) => ({type: SWAP_IMAGE, id})
